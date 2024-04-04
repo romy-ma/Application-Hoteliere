@@ -1,0 +1,6 @@
+Host: pg-1b316499-grabachakib008-e4aa.a.aivencloud.com
+DataBAse Name: defaultdb
+Port : 10488
+User : avnadmin
+PassWord : AVNS_62CBaxeGCayUxAPfr6L
+sslMode : require

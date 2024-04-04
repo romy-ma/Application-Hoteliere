@@ -11,7 +11,7 @@ public class Main {
         // Database URL, username, and password
         String url = "jdbc:postgresql://pg-1b316499-grabachakib008-e4aa.a.aivencloud.com:10488/defaultdb";
         String user = "avnadmin";
-        String password = "Put password of databse here";
+        String password = "Put Data Base Password here";
 
         try {
             // Load the PostgreSQL JDBC driver
