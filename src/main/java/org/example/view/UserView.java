@@ -1,14 +1,7 @@
 package org.example.view;
 
-import org.example.model.User;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import org.example.model.User;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class UserView extends JFrame {
@@ -18,43 +11,52 @@ public class UserView extends JFrame {
     private JButton signUpButton;
 
     public UserView() {
-        setTitle("User Authentication");
-        setSize(300, 200);
+        setTitle("Quartz Hotel");
+        setSize(600, 400); // Taille plus grande
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        getContentPane().add(panel);
+        // Création du panneau principal avec un layout BorderLayout
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(new Color(255, 248, 220)); // Couleur beige clair
 
-        JLabel usernameLabel = new JLabel("Username:");
-        panel.add(usernameLabel);
+        // Ajout du message de bienvenue multilingue
+        JLabel welcomeLabel = new JLabel("<html><center>Welcome to Quartz Hotel!<br>Bienvenue à l'hôtel Quartz!<br>¡Bienvenido al Hotel Quartz!</center></html>");
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 20)); // Police et taille de la police
+        welcomeLabel.setHorizontalAlignment(JLabel.CENTER); // Centre le texte horizontalement
+        welcomeLabel.setVerticalAlignment(JLabel.CENTER); // Centre le texte verticalement
+        mainPanel.add(welcomeLabel, BorderLayout.CENTER);
 
-        usernameField = new JTextField(20);
-        panel.add(usernameField);
+        // Création du panneau pour les boutons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Utilise un layout FlowLayout
+        buttonPanel.setBackground(new Color(143, 188, 143)); // Couleur vert tropical
 
-        JLabel passwordLabel = new JLabel("Password:");
-        panel.add(passwordLabel);
-
-        passwordField = new JPasswordField(20);
-        panel.add(passwordField);
-
+        // Ajout des boutons de connexion et d'inscription
         signInButton = new JButton("Sign In");
-        panel.add(signInButton);
-
         signUpButton = new JButton("Sign Up");
-        panel.add(signUpButton);
+        buttonPanel.add(signInButton);
+        buttonPanel.add(signUpButton);
+
+        // Ajout des panneaux au panneau principal
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Ajout du panneau principal à la fenêtre
+        getContentPane().add(mainPanel);
+
+        // Redimensionne la fenêtre pour s'adapter au contenu
+        pack();
     }
 
+    // Méthodes pour récupérer les valeurs des champs de texte
     public String getUsername() {
         return usernameField.getText();
     }
 
     public String getPassword() {
-        // Retrieve password from password field
-        char[] passwordChars = passwordField.getPassword();
-        return new String(passwordChars);
+        return new String(passwordField.getPassword());
     }
 
+    // Méthodes pour ajouter des écouteurs aux boutons
     public void onSignInButtonClicked(ActionListener listener) {
         signInButton.addActionListener(listener);
     }
@@ -63,3 +65,5 @@ public class UserView extends JFrame {
         signUpButton.addActionListener(listener);
     }
 }
+
+
