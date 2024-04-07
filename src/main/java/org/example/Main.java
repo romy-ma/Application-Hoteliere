@@ -1,9 +1,5 @@
 package org.example;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoCollection;
-import org.bson.Document;
+import java.sql.*;
 import org.example.controller.UserController;
 import org.example.model.User;
 import org.example.view.UserView;
