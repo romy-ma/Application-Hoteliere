@@ -4,6 +4,11 @@ import org.example.model.User;
 import org.example.view.UserView;
 
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -15,23 +20,54 @@ import java.awt.event.ActionListener;
 
 public class UserController {
     private UserView userView;
-    private MongoClient mongoClient;
-    private MongoDatabase database;
-    private MongoCollection<Document> collection;
+    private User user = null;
+    Connection connection = null;
+    Statement statement = null;
+    ResultSet resultSet = null;
+
 
     public UserController(UserView userView) {
         this.userView = userView;
+        String url = "jdbc:postgresql://pg-1b316499-grabachakib008-e4aa.a.aivencloud.com:10488/defaultdb";
+        String username_data = "avnadmin";
+        String password_database = null;
+        final int Password_Line =4;
+        String File_path = "src\\main\\java\\org\\example\\Data_Base_Info.txt";
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(File_path));
+            int currentline = 0;
+            while ((password_database = bufferedReader.readLine()) != null )
+            {
+                if(Password_Line == currentline)
+                {
+                    break;
+                }
+                currentline++;
+            }
+
+        }catch( IOException exp)
+        {
+            JOptionPane.showMessageDialog(null,"problem with file");
+        }
 
         // Connect to MongoDB
-        mongoClient = MongoClients.create("mongodb://localhost:27017");
-        database = mongoClient.getDatabase("Hotel_QUARTZ");
-        collection = database.getCollection("users");
+        try
+        {
+            Class.forName("org.postgresql.Driver");
 
-        userView.onSignInButtonClicked(new SignInButtonListener());
+            connection = DriverManager.getConnection(url, username_data, password_database);
+
+        }
+        catch (ClassNotFoundException | SQLException e)
+        {
+            JOptionPane.showMessageDialog(null,"could not connect to database");
+        }
+
+        userView.onLogInButtonClicked(new LogInButtonListener());
         userView.onSignUpButtonClicked(new SignUpButtonListener());
     }
 
-    class SignInButtonListener implements ActionListener {
+    class LogInButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Retrieve user input from view
@@ -39,13 +75,28 @@ public class UserController {
             String password = userView.getPassword();
 
             // Perform sign-in logic
-            Document query = new Document("username", username).append("password", password);
-            Document userDoc = collection.find(query).first();
-            if (userDoc != null) {
-                JOptionPane.showMessageDialog(null, "Sign in successful!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Invalid username or password.", "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                Statement statement1 = connection.createStatement();
+                ResultSet resultSet1 = statement1.executeQuery("SELECT * FROM Clients");
+                boolean found = false;
+                while (resultSet1.next() && !found) {
+                    if (username.equals(resultSet1.getString("username")) && password.equals(resultSet1.getString("password"))) {
+                        JOptionPane.showMessageDialog(null, "login succeful");
+                        user = new User(username,password);
+                        found = true;
+                    }
+
+                }
+                if(!found)
+                {
+                    JOptionPane.showMessageDialog(null,"User Not Found");
+                }
             }
+            catch (SQLException exp)
+            {
+                JOptionPane.showMessageDialog(null,"eroor data base");
+            }
+
         }
     }
 
@@ -67,21 +118,46 @@ public class UserController {
                 JOptionPane.showMessageDialog(null, "Username already exists. Please choose a different one.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
             // Create a new user object
             User newUser = new User(username, password);
+            try {
+                String insert_querry = "INSERT INTO Clients(username,password) VALUES(?,?)";
+                PreparedStatement statement1 = connection.prepareStatement(insert_querry);
+                statement1.setString(1,username);
+                statement1.setString(2,password);
+                int rows = statement1.executeUpdate();
+                JOptionPane.showMessageDialog(null, "User signed up successfully!");
+            }catch (SQLException exp)
+            {
+                JOptionPane.showMessageDialog(null,"error in data base");
+            }
 
             // Save new user to database
-            Document userDoc = newUser.toDocument();
-            collection.insertOne(userDoc);
 
-            JOptionPane.showMessageDialog(null, "User signed up successfully!");
+
         }
     }
 
     private boolean isUsernameExists(String username) {
-        Document query = new Document("username", username);
-        return collection.countDocuments(query) > 0;
+        boolean found =false;
+        try{
+            Statement statement1 = connection.createStatement();
+            ResultSet resultSet1 = statement1.executeQuery("SELECT * FROM Clients");
+
+            while (resultSet1.next() && !found)
+            {
+                if(username.equals(resultSet1.getString("username")))
+                {
+                    found = true;
+                }
+            }
+
+        }
+        catch(SQLException exp)
+        {
+            JOptionPane.showMessageDialog(null,"error in data base");
+        }
+        return found;
     }
 
 

@@ -30,14 +30,6 @@ public class User {
         this.password = password;
     }
 
-    // Convert User object to MongoDB Document
-    public Document toDocument() {
-        return new Document("username", username)
-                .append("password", password);
-    }
 
-    // Convert MongoDB Document to User object
-    public static User fromDocument(Document doc) {
-        return new User(doc.getString("username"), doc.getString("password"));
-    }
+
 }

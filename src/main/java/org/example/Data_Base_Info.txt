@@ -4,3 +4,10 @@ Port : 10488
 User : avnadmin
 PassWord : AVNS_62CBaxeGCayUxAPfr6L
 sslMode : require
+=======
+pg-1b316499-grabachakib008-e4aa.a.aivencloud.com
+defaultdb
+10488
+avnadmin
+AVNS_62CBaxeGCayUxAPfr6L
+require

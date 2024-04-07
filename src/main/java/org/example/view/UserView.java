@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 public class UserView extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JButton signInButton;
+    private JButton logInButton;
     private JButton signUpButton;
 
     public UserView() {
@@ -38,8 +38,8 @@ public class UserView extends JFrame {
         passwordField = new JPasswordField(20);
         panel.add(passwordField);
 
-        signInButton = new JButton("Sign In");
-        panel.add(signInButton);
+        logInButton = new JButton("log In");
+        panel.add(logInButton);
 
         signUpButton = new JButton("Sign Up");
         panel.add(signUpButton);
@@ -55,8 +55,8 @@ public class UserView extends JFrame {
         return new String(passwordChars);
     }
 
-    public void onSignInButtonClicked(ActionListener listener) {
-        signInButton.addActionListener(listener);
+    public void onLogInButtonClicked(ActionListener listener) {
+        logInButton.addActionListener(listener);
     }
 
     public void onSignUpButtonClicked(ActionListener listener) {
