@@ -1,15 +1,8 @@
 package org.example.view;
-
-import org.example.model.User;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.example.model.User;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class UserView extends JFrame {
     private JTextField usernameField;
