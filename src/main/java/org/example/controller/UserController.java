@@ -29,7 +29,7 @@ public class UserController {
         }
         catch (ClassNotFoundException | SQLException e)
         {
-            JOptionPane.showMessageDialog(null,"could not connect to database");
+            e.printStackTrace();
         }
 
         userView.onLogInButtonClicked(new LogInButtonListener());
