@@ -5,6 +5,7 @@ import org.bson.Document;
 public class User {
     private String username;
     private String password;
+    private int reservationNumber;
 
     // Constructor
     public User(String username, String password) {
@@ -30,6 +31,11 @@ public class User {
         this.password = password;
     }
 
+    public int getReservationNumber() {
+        return reservationNumber;
+    }
 
-
+    public void setReservationNumber(int reservationNumber) {
+        this.reservationNumber = reservationNumber;
+    }
 }
