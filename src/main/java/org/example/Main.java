@@ -25,11 +25,13 @@ public class Main {
                 UserController controller = new UserController(userView);
                 userView.setVisible(true);
 
-                SwingUtilities.invokeLater(() -> {
-                    ClientView clientView = new ClientView();
-                    ClientController clientController = new ClientController(clientView,new ReservationService());
-                    clientView.setVisible(true);
-                });
+//
+//                // this is for client not yet
+//                SwingUtilities.invokeLater(() -> {
+//                    ClientView clientView = new ClientView();
+//                    ClientController clientController = new ClientController(clientView,new ReservationService());
+//                    clientView.setVisible(true);
+//                });
 
 
 
