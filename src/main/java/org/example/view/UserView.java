@@ -1,13 +1,20 @@
 package org.example.view;
+<<<<<<< HEAD
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+=======
+import javax.swing.*;
+import java.awt.event.ActionListener;
+
+
+>>>>>>> 83aa695cef892566315f35ea02f2766d7f25c427
 
 public class UserView extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JButton signInButton;
+    private JButton logInButton;
     private JButton signUpButton;
 
     public UserView() {
@@ -31,8 +38,14 @@ public class UserView extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Utilise un layout FlowLayout
         buttonPanel.setBackground(new Color(143, 188, 143)); // Couleur vert tropical
 
+<<<<<<< HEAD
         // Ajout des boutons de connexion et d'inscription
         signInButton = new JButton("Sign In");
+=======
+        logInButton = new JButton("log In");
+        panel.add(logInButton);
+
+>>>>>>> 83aa695cef892566315f35ea02f2766d7f25c427
         signUpButton = new JButton("Sign Up");
         buttonPanel.add(signInButton);
         buttonPanel.add(signUpButton);
@@ -56,9 +69,14 @@ public class UserView extends JFrame {
         return new String(passwordField.getPassword());
     }
 
+<<<<<<< HEAD
     // Méthodes pour ajouter des écouteurs aux boutons
     public void onSignInButtonClicked(ActionListener listener) {
         signInButton.addActionListener(listener);
+=======
+    public void onLogInButtonClicked(ActionListener listener) {
+        logInButton.addActionListener(listener);
+>>>>>>> 83aa695cef892566315f35ea02f2766d7f25c427
     }
 
     public void onSignUpButtonClicked(ActionListener listener) {

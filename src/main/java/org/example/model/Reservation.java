@@ -1,5 +1,6 @@
 package org.example.model;
 
+<<<<<<< HEAD
 
 import java.time.LocalDate;
 
@@ -67,5 +68,36 @@ public class Reservation {
                 ", date de début=" + startDate +
                 ", date de fin=" + endDate +
                 '}';
+=======
+public class Reservation {
+    private int reservationNumber;
+    private Room roomToReserve;
+    private String clientUsername;
+    private HotelDate beginDate;
+    private HotelDate endDate;
+
+    public int getReservationNumber() {
+        return reservationNumber;
+    }
+
+    public void setReservationNumber(int reservationNumber) {
+        this.reservationNumber = reservationNumber;
+    }
+
+    public Room getRoomToReserve() {
+        return roomToReserve;
+    }
+
+    public void setRoomToReserve(Room roomToReserve) {
+        this.roomToReserve = roomToReserve;
+    }
+
+    public String getClientUsername() {
+        return clientUsername;
+    }
+
+    public void setClientUsername(String clientUsername) {
+        this.clientUsername = clientUsername;
+>>>>>>> 83aa695cef892566315f35ea02f2766d7f25c427
     }
 }

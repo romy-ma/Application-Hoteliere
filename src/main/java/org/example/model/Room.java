@@ -1,5 +1,6 @@
 package org.example.model;
 
+<<<<<<< HEAD
 
 public class Room {
     private int roomNumber;
@@ -56,5 +57,55 @@ public class Room {
                 ", statut de réservation=" + reservedStatus +
                 ", prix=" + price +
                 '}';
+=======
+public class Room {
+    private int roomnumber;
+    private int roomprice;
+    private boolean isreserved;
+    private Building roomtype;
+    public Room(int roomprice,Building roomtype)
+    {
+        this.roomprice = roomprice;
+        this.isreserved = false;
+        this.roomtype = roomtype;
+    }
+    public Room(int roomprice,int roomnumber,boolean isreserved,Building roomtype)
+    {
+        this.roomtype =roomtype;
+        this.isreserved = isreserved;
+        this.roomprice = roomprice;
+        this.roomnumber =roomnumber;
+    }
+    public Building getRoomtype() {
+        return roomtype;
+    }
+
+    public void setRoomtype(Building roomtype) {
+        this.roomtype = roomtype;
+    }
+
+    public int getRoomnumber() {
+        return roomnumber;
+    }
+
+    public void setRoomnumber(int roomnumber) {
+        this.roomnumber = roomnumber;
+    }
+
+    public int getRoomprice() {
+        return roomprice;
+    }
+
+    public void setRoomprice(int roomprice) {
+        this.roomprice = roomprice;
+    }
+
+    public boolean isIsreserved() {
+        return isreserved;
+    }
+
+    public void setIsreserved(boolean isreserved) {
+        this.isreserved = isreserved;
+>>>>>>> 83aa695cef892566315f35ea02f2766d7f25c427
     }
 }

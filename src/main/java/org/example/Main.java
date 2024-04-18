@@ -1,4 +1,5 @@
 package org.example;
+<<<<<<< HEAD
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
@@ -12,15 +13,19 @@ import org.example.view.ClientView;
 import org.example.view.UserView;
 import org.example.Service.ReservationService;
 
+=======
+import org.example.controller.DataBaseConnexion;
+import org.example.view.MainAuthenticate;
+>>>>>>> 83aa695cef892566315f35ea02f2766d7f25c427
 import javax.swing.*;
+import java.sql.SQLException;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+<<<<<<< HEAD
                 UserView userView = new UserView();
                 UserController controller = new UserController(userView);
                 userView.setVisible(true);
@@ -35,6 +40,18 @@ public class Main {
 
 
 
+=======
+                try {
+                    DataBaseConnexion.getConnection();
+                    DataBaseConnexion.getUsers();
+                    DataBaseConnexion.getRooms();
+                }catch (SQLException ex)
+                {
+                    JOptionPane.showMessageDialog(null,"Data Base error");
+                }
+                MainAuthenticate mainAuthenticate = new MainAuthenticate();
+                mainAuthenticate.setVisible(true);
+>>>>>>> 83aa695cef892566315f35ea02f2766d7f25c427
             }
         });
 
