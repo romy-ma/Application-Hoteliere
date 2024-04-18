@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 public class User {
     private String username;
     private String password;
+    private int reservationNumber;
 
 
     // Constructor
@@ -36,15 +37,12 @@ public class User {
         this.password = password;
     }
 
-    // Convert User object to MongoDB Document
-    public Document toDocument() {
-        return new Document("username", username)
-                .append("password", password);
+    public int getReservationNumber() {
+        return reservationNumber;
     }
 
-    // Convert MongoDB Document to User object
-    public static User fromDocument(Document doc) {
-        return new User(doc.getString("username"), doc.getString("password"));
+    public void setReservationNumber(int reservationNumber) {
+        this.reservationNumber = reservationNumber;
     }
 
     // pour hasher le mot de passe
