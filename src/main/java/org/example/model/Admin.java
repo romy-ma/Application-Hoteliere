@@ -1,5 +1,7 @@
 package org.example.model;
 
+import org.example.controller.DataBaseConnexion;
+
 import java.sql.ClientInfoStatus;
 import java.util.HashMap;
 

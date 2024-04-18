@@ -1,7 +1,7 @@
 package org.example.view;
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.util.Locale;
+
 
 public class AdminAuthenticate extends JFrame {
     private JTextField usernameField;

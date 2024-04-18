@@ -1,71 +1,69 @@
 package org.example.controller;
 
 import org.example.model.Admin;
+import org.example.model.Building;
 import org.example.model.Room;
+import org.example.model.Building;
 import org.example.view.AdminAuthenticate;
+import org.example.view.AdminView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.ParseException;
 
 public class AdminController {
     Admin admin;
-
     AdminAuthenticate adminAuthenticate;
-
-    Connection connection;
-    public AdminController(AdminAuthenticate adminAuthenticate)
-    {
-        this.adminAuthenticate =adminAuthenticate;
-        try {
-            Class.forName("org.postgresql.Driver");
-            connection = DataBaseConnexion.getConnection();
-        } catch (SQLException | ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null,"error in data base");
-        }
-        adminAuthenticate.onLoginButtonClicked(new LogInButtonLitener());
+    AdminView adminView;
+    public AdminController(AdminAuthenticate adminAuthenticate) {
+        this.adminAuthenticate = adminAuthenticate;
+        adminAuthenticate.onLoginButtonClicked(new LogInButtonListener());
     }
 
-    class LogInButtonLitener implements ActionListener
-    {
+    class LogInButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String username = adminAuthenticate.getUsername();
+            String username = adminAuthenticate.getUsername().replace(" ","");
             String password = adminAuthenticate.getpassword();
             try {
-                Admin test = getAdminFromDataBase();
-                if(username.equals(test.getUsername()) && password.equals(test.getPassword()))
-                {
+                Admin test = DataBaseConnexion.getAdminFromDataBase();
+                if (username.equals(test.getUsername()) && password.equals(test.getPassword())) {
                     admin = test;
-                    JOptionPane.showMessageDialog(null,"Login Succesful\n welcome back Admin");
-                }
-                else {
-                    JOptionPane.showMessageDialog(null,"wrong username or password");
+                    JOptionPane.showMessageDialog(null, "Login Succesful\n welcome back Admin");
+                    adminView = new AdminView(admin);
+                    adminView.OnClickCreateRoom(new CreateRoomButton());
+                    adminView.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "wrong username or password");
                 }
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null,"could not get admin");
+                JOptionPane.showMessageDialog(null, "could not get admin");
             }
         }
     }
-    public Admin getAdminFromDataBase() throws SQLException
+
+
+
+
+    class CreateRoomButton implements ActionListener
     {
-        String querry = "SELECT * FROM Admin";
-
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(querry);
-        resultSet.next();
-        return new Admin(resultSet.getString("name"),resultSet.getString("password"));
-    }
-
-
-
-    public void createRoom()
-    {
-
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                Integer price = adminView.getPrice();
+                Building roomType = adminView.getRoomType();
+                Room room = new Room(price,roomType);
+                DataBaseConnexion.InsertRoomIntoDataBase(room);
+                JOptionPane.showMessageDialog(null,"Room inserted succesful");
+                return;
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,"enter a number not special caracters");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"error in inserting to dtabase");
+            }
+        }
     }
 }
