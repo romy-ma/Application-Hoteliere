@@ -28,8 +28,8 @@ public class ClientController {
 
             if (availableRoom != null) {
                 // Récupérer les dates de début et de fin de la réservation à partir de la vue
-                Date beginDate = clientView.getBeginDate();
-                Date endDate = clientView.getEndDate();
+                Date beginDate =(Date) clientView.getBeginDate();
+                Date endDate = (Date) clientView.getEndDate();
 
                 // Créer une nouvelle réservation
                 Reservation newReservation = new Reservation(beginDate, endDate, availableRoom.getRoomNumber());
