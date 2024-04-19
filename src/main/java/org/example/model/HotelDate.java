@@ -82,4 +82,8 @@ public class HotelDate {
             return false;
         }
     }
+
+    public long getTime() {
+        return 0;
+    }
 }

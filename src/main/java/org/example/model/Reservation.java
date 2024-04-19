@@ -1,11 +1,27 @@
 package org.example.model;
 
+import java.sql.Date;
+
 public class Reservation {
     private int reservationNumber;
-    private Room roomToReserve;
-    private String clientUsername;
+    private int roomToReserve;
     private HotelDate beginDate;
     private HotelDate endDate;
+
+    // Constructeur avec tous les paramètres
+    public Reservation(int reservationNumber, int roomToReserve, HotelDate beginDate, HotelDate endDate) {
+        this.reservationNumber = reservationNumber;
+        this.roomToReserve = roomToReserve;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+    }
+
+    public Reservation(int roomToReserve, Date beginDate, Date endDate) {
+        this.roomToReserve = roomToReserve;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+    }
+
 
     public int getReservationNumber() {
         return reservationNumber;
@@ -15,19 +31,27 @@ public class Reservation {
         this.reservationNumber = reservationNumber;
     }
 
-    public Room getRoomToReserve() {
+    public int getRoomToReserve() {
         return roomToReserve;
     }
 
-    public void setRoomToReserve(Room roomToReserve) {
+    public void setRoomToReserve(int roomToReserve) {
         this.roomToReserve = roomToReserve;
     }
 
-    public String getClientUsername() {
-        return clientUsername;
+    public HotelDate getBeginDate() {
+        return beginDate;
     }
 
-    public void setClientUsername(String clientUsername) {
-        this.clientUsername = clientUsername;
+    public void setBeginDate(HotelDate beginDate) {
+        this.beginDate = beginDate;
+    }
+
+    public HotelDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(HotelDate endDate) {
+        this.endDate = endDate;
     }
 }

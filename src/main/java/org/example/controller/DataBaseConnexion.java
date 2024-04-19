@@ -16,7 +16,7 @@ public class DataBaseConnexion {
     private static final int Password_Line =4;
     public static HashMap<String, User> usersMap =new HashMap<>();
     public static HashMap<Integer, Room> roomsMap = new HashMap<>();
-    public static HashMap<Integer, Reservation> reservationMap;
+    public static HashMap<Integer, Reservation> reservationMap = new HashMap<>();
     public static Connection connection;
     private static String File_path = "src\\main\\java\\org\\example\\Data_Base_Info.txt";
        public static void getConnection() throws SQLException
@@ -94,8 +94,36 @@ public class DataBaseConnexion {
         statement.setString(2, user.getPassword());
         statement.executeUpdate();
     }
+
+    public static void insertReservationIntoDatabase(Reservation reservation) throws SQLException {
+        String query = "INSERT INTO Reservations (begin_date, end_date, room_number) VALUES (?, ?, ?)";
+        PreparedStatement statement = DataBaseConnexion.connection.prepareStatement(query);
+        statement.setDate(1, new java.sql.Date(reservation.getBeginDate().getTime()));
+        statement.setDate(2, new java.sql.Date(reservation.getEndDate().getTime()));
+        statement.setInt(3, reservation.getRoomToReserve());
+        statement.executeUpdate();
+    }
+
     public static void PrintData()
     {
         System.out.println(roomsMap);
     }
+
+    // pour les reservations
+//    public static void getReservations() throws SQLException {
+//        String query = "SELECT * FROM Reservations";
+//        Statement statement = connection.createStatement();
+//        ResultSet resultSet = statement.executeQuery(query);
+//        while(resultSet.next()) {
+//            int reservationNumber = resultSet.getInt("reservationnumber");
+//            Date beginDate = resultSet.getDate("begin_date");
+//            Date endDate = resultSet.getDate("end_date");
+//            int roomNumber = resultSet.getInt("room_number");
+//            Reservation reservation = new Reservation(reservationNumber, beginDate, endDate, roomNumber);
+//            reservationMap.put(reservationNumber, reservation);
+//        }
+//    }
 }
+
+
+

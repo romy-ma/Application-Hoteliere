@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import org.example.model.Reservation;
+import org.example.model.Room;
 import org.example.model.User;
 import org.example.view.UserView;
 
@@ -75,12 +77,60 @@ public class UserController {
                 JOptionPane.showMessageDialog(null,"error in data base");
             }
         }
+        private boolean isUsernameExists(String username) {
+            return DataBaseConnexion.usersMap.containsKey(username);
+        }
+    }
+    class ReserveButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Trouver la première chambre disponible
+            Room availableRoom = findAvailableRoom();
+
+            if (availableRoom != null) {
+                // Récupérer les dates de début et de fin de la réservation à partir de la vue
+                Date beginDate = userView.getBeginDate();
+                Date endDate = userView.getEndDate();
+
+                // Créer une nouvelle réservation
+                Reservation newReservation = new Reservation(availableRoom.getRoomnumber(),beginDate, endDate);
+
+                try {
+                    // Insérer la réservation dans la base de données
+                    DataBaseConnexion.insertReservationIntoDatabase(newReservation);
+
+                    // Modifier l'état de réservation de l'utilisateur
+                    User currentUser = getCurrentUser();
+                    currentUser.setReservationStatus(true);
+
+                    // Informer l'utilisateur que la réservation a été effectuée avec succès
+                    JOptionPane.showMessageDialog(null, "Reservation successful!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error occurred while making reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No available rooms found.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        // Méthode pour trouver la première chambre disponible
+        private Room findAvailableRoom() {
+            for (Room room : DataBaseConnexion.roomsMap.values()) {
+                if (!room.isIsreserved()) {
+                    return room;
+                }
+            }
+            return null; // Retourner null s'il n'y a pas de chambre disponible
+        }
+
+
     }
 
-    private boolean isUsernameExists(String username) {
-        return DataBaseConnexion.usersMap.containsKey(username);
+    // récupérer l'utilisateur actuellement connecté session mommentanee
+    public User getCurrentUser() {
+        return user;
     }
-
-
 
 }
+
