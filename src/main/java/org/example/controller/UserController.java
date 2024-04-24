@@ -35,7 +35,6 @@ public class UserController {
                     user = DataBaseConnexion.usersMap.get(username);
                     JOptionPane.showMessageDialog(null,"Login succecful");
                     ClientView amine = new ClientView();
-
                     return;
             }
             else
@@ -90,6 +89,7 @@ public class UserController {
     public User getCurrentUser() {
         return user;
     }
+
 
 }
 

@@ -77,6 +77,9 @@ public class ClientView {
         reserveButton.addActionListener(listener);
     }
 
+    public void enableReservationButton() {
+        reserveButton.setVisible(true); // Activer le bouton
+    }
     // Method to display a message to the user
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
