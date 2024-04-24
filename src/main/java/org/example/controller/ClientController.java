@@ -1,3 +1,6 @@
+package org.example.controller;
+
+import org.example.controller.DataBaseConnexion;
 import org.example.model.Reservation;
 import org.example.model.Room;
 import org.example.model.User;
@@ -25,15 +28,14 @@ public class ClientController {
         public void actionPerformed(ActionEvent e) {
             // Trouver la première chambre disponible
             Room availableRoom = findAvailableRoom();
-
+           System.out.println("rooms shown");
             if (availableRoom != null) {
                 // Récupérer les dates de début et de fin de la réservation à partir de la vue
                 Date beginDate =(Date) clientView.getBeginDate();
                 Date endDate = (Date) clientView.getEndDate();
 
                 // Créer une nouvelle réservation
-                Reservation newReservation = new Reservation(beginDate, endDate, availableRoom.getRoomNumber());
-
+                Reservation newReservation = new Reservation(availableRoom.getRoomnumber(),beginDate, endDate);
                 try {
                     // Insérer la réservation dans la base de données
                     DataBaseConnexion.insertReservationIntoDatabase(newReservation);
@@ -50,6 +52,7 @@ public class ClientController {
             } else {
                 JOptionPane.showMessageDialog(null, "No available rooms found.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         }
 
         // Méthode pour trouver la première chambre disponible

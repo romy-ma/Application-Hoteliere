@@ -5,11 +5,11 @@ import java.sql.Date;
 public class Reservation {
     private int reservationNumber;
     private int roomToReserve;
-    private HotelDate beginDate;
-    private HotelDate endDate;
+    private Date beginDate;
+    private Date endDate;
 
     // Constructeur avec tous les paramètres
-    public Reservation(int reservationNumber, int roomToReserve, HotelDate beginDate, HotelDate endDate) {
+    public Reservation(int reservationNumber, int roomToReserve, Date beginDate, Date endDate) {
         this.reservationNumber = reservationNumber;
         this.roomToReserve = roomToReserve;
         this.beginDate = beginDate;
@@ -39,19 +39,19 @@ public class Reservation {
         this.roomToReserve = roomToReserve;
     }
 
-    public HotelDate getBeginDate() {
+    public Date getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(HotelDate beginDate) {
+    public void setBeginDate(Date beginDate) {
         this.beginDate = beginDate;
     }
 
-    public HotelDate getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(HotelDate endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 }

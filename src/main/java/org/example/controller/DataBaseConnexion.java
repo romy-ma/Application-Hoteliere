@@ -83,7 +83,7 @@ public class DataBaseConnexion {
         String query = "INSERT INTO rooms (price,is_reserved,room_type) VALUES (?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, room.getRoomprice());
-        preparedStatement.setBoolean(2, room.isIsreserved());
+        preparedStatement.setBoolean(2, room.isReserved());
         preparedStatement.setObject(3,room.getRoomtype(),Types.OTHER);
         preparedStatement.executeUpdate();
     }

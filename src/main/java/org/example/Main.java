@@ -15,7 +15,7 @@ public class Main {
                     DataBaseConnexion.getRooms();
                 }catch (SQLException ex)
                 {
-                    JOptionPane.showMessageDialog(null,"Data Base error");
+JOptionPane.showMessageDialog(null,ex);
                 }
                 MainAuthenticate mainAuthenticate = new MainAuthenticate();
                 mainAuthenticate.setVisible(true);
