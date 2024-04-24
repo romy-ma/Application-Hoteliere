@@ -7,21 +7,36 @@ public class Reservation {
     private int roomToReserve;
     private Date beginDate;
     private Date endDate;
+    private String username ;
 
     // Constructeur avec tous les paramètres
-    public Reservation(int reservationNumber, int roomToReserve, Date beginDate, Date endDate) {
+    public Reservation(int reservationNumber, int roomToReserve, Date beginDate, Date endDate,String username) {
         this.reservationNumber = reservationNumber;
         this.roomToReserve = roomToReserve;
         this.beginDate = beginDate;
         this.endDate = endDate;
+        this.username =username;
     }
-
+    public Reservation(int roomToReserve,Date beginDate,Date endDate,String username)
+    {
+        this.roomToReserve = roomToReserve;
+        this.username = username;
+        this.beginDate =beginDate;
+        this.endDate = endDate;
+    }
     public Reservation(int roomToReserve, Date beginDate, Date endDate) {
         this.roomToReserve = roomToReserve;
         this.beginDate = beginDate;
         this.endDate = endDate;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public int getReservationNumber() {
         return reservationNumber;

@@ -34,7 +34,7 @@ public class UserController {
             {
                     user = DataBaseConnexion.usersMap.get(username);
                     JOptionPane.showMessageDialog(null,"Login succecful");
-                    ClientView amine = new ClientView();
+                    new ClientController(new ClientView(),user);
 
                     return;
             }

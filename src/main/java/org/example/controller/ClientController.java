@@ -35,7 +35,7 @@ public class ClientController {
                 Date endDate = (Date) clientView.getEndDate();
 
                 // Créer une nouvelle réservation
-                Reservation newReservation = new Reservation(availableRoom.getRoomnumber(),beginDate, endDate);
+                Reservation newReservation = new Reservation(availableRoom.getRoomnumber(),beginDate, endDate,user.getUsername());
                 try {
                     // Insérer la réservation dans la base de données
                     DataBaseConnexion.insertReservationIntoDatabase(newReservation);
