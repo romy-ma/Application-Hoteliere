@@ -1,6 +1,10 @@
 package org.example.controller;
 
+import org.example.model.Reservation;
+import org.example.model.Room;
 import org.example.model.User;
+import org.example.view.AdminView;
+import org.example.view.ClientView;
 import org.example.view.UserView;
 
 import javax.swing.*;
@@ -30,6 +34,8 @@ public class UserController {
             {
                     user = DataBaseConnexion.usersMap.get(username);
                     JOptionPane.showMessageDialog(null,"Login succecful");
+                    new ClientController(new ClientView(),user);
+
                     return;
             }
             else
@@ -75,12 +81,15 @@ public class UserController {
                 JOptionPane.showMessageDialog(null,"error in data base");
             }
         }
+        private boolean isUsernameExists(String username) {
+            return DataBaseConnexion.usersMap.containsKey(username);
+        }
     }
 
-    private boolean isUsernameExists(String username) {
-        return DataBaseConnexion.usersMap.containsKey(username);
+    // récupérer l'utilisateur actuellement connecté session mommentanee
+    public User getCurrentUser() {
+        return user;
     }
-
-
 
 }
+

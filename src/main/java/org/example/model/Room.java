@@ -42,7 +42,7 @@ public class Room {
         this.roomprice = roomprice;
     }
 
-    public boolean isIsreserved() {
+    public boolean isReserved() {
         return isreserved;
     }
 
