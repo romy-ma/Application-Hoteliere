@@ -6,17 +6,14 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 
 
-public class AdminView extends JFrame {
+public class CreateRoomView extends JFrame {
     JButton createRoomButton;
-    JButton modifyRoomButton;
-    JButton deleteRoomButton;
     JTextField priceOfRoom;
     Admin admin;
     JComboBox<Building> roomType;
     Building[] options = Building.values();
-    public AdminView(Admin admin)
+    public CreateRoomView()
     {
-        this.admin = admin;
         setTitle("Admin Actions");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +36,8 @@ public class AdminView extends JFrame {
 
         createRoomButton = new JButton("Create Room");
         panel.add(createRoomButton);
+
+        setVisible(true);
     }
     public Integer getPrice() throws NumberFormatException {
 
