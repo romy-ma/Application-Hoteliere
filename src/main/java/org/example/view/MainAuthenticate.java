@@ -1,8 +1,10 @@
 package org.example.view;
 
 import org.example.controller.AdminController;
+import org.example.controller.ClientController;
 import org.example.controller.UserController;
 import org.example.model.Admin;
+import org.example.model.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -38,6 +40,7 @@ public class MainAuthenticate extends JFrame {
         public void actionPerformed(ActionEvent e) {
             UserView userView = new UserView();
             UserController userController = new UserController(userView);
+            User user = new User(null,null);
             userView.setVisible(true);
         }
     }

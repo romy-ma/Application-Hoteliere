@@ -6,6 +6,7 @@ public class User {
     private String username;
     private String password;
     private int reservationNumber;
+    private boolean reservationStatus;
 
     // Constructor
     public User(String username, String password) {
@@ -37,5 +38,13 @@ public class User {
 
     public void setReservationNumber(int reservationNumber) {
         this.reservationNumber = reservationNumber;
+    }
+
+    public boolean isReservationStatus() {
+        return reservationStatus;
+    }
+
+    public void setReservationStatus(boolean reservationStatus) {
+        this.reservationStatus = reservationStatus;
     }
 }
