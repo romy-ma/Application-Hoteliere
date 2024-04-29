@@ -18,7 +18,7 @@ public class RoomModifiersChoosers extends JFrame {
     {
         JLabel chooseLabel = new JLabel("Choose an Action:");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
+        setLayout(new GridLayout(0,2,10,10));
         setSize(300,200);
         setLocationRelativeTo(null);
         JPanel panel = new JPanel();
@@ -78,7 +78,7 @@ public class RoomModifiersChoosers extends JFrame {
               Integer roomnumber = modifyRoomView.getRoomNumber();
               if(DataBaseConnexion.roomsMap.containsKey(roomnumber))
               {
-                  if(!DataBaseConnexion.roomsMap.get(roomnumber).isIsreserved())
+                  if(!DataBaseConnexion.roomsMap.get(roomnumber).isReserved())
                   {
                       DataBaseConnexion.insertModifiesRoom(new Room(price,roomnumber,false,roomType));
                   }
@@ -110,9 +110,10 @@ public class RoomModifiersChoosers extends JFrame {
                Integer roomNumber  = deleteRoomView.getRoomNumber();
                if(DataBaseConnexion.roomsMap.containsKey(roomNumber))
                {
-                   if(!DataBaseConnexion.roomsMap.get(roomNumber).isIsreserved())
+                   if(!DataBaseConnexion.roomsMap.get(roomNumber).isReserved())
                    {
                        DataBaseConnexion.deleteRoom(new Room(roomNumber));
+                       JOptionPane.showMessageDialog(null,"Room Deleted Successfully");
                    }
                    else {
                        JOptionPane.showMessageDialog(null,"This Room Is Reserved Cant delete");
