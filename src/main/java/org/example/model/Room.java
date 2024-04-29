@@ -5,6 +5,10 @@ public class Room {
     private int roomprice;
     private boolean isreserved;
     private Building roomtype;
+    public Room(int roomnumber)
+    {
+        this.roomnumber = roomnumber;
+    }
     public Room(int roomprice,Building roomtype)
     {
         this.roomprice = roomprice;
