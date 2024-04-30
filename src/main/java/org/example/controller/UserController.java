@@ -33,8 +33,10 @@ public class UserController {
             if(DataBaseConnexion.usersMap.containsKey(username) && DataBaseConnexion.usersMap.get(username).getPassword().equals(password))
             {
                     user = DataBaseConnexion.usersMap.get(username);
-                    JOptionPane.showMessageDialog(null,"Login succecful");
-                    ClientView amine = new ClientView();
+
+                  /////// apres que le login marche jaffiche reserver
+                    new ClientController(new ClientView(),user);
+
                     return;
             }
             else

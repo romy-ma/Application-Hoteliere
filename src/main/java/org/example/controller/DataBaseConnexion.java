@@ -96,11 +96,12 @@ public class DataBaseConnexion {
     }
 
     public static void insertReservationIntoDatabase(Reservation reservation) throws SQLException {
-        String query = "INSERT INTO Reservations (begin_date, end_date, room_number) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Reservations (begin_date, end_date, room_number,username) VALUES (?, ?, ?,?)";
         PreparedStatement statement = DataBaseConnexion.connection.prepareStatement(query);
         statement.setDate(1, new java.sql.Date(reservation.getBeginDate().getTime()));
         statement.setDate(2, new java.sql.Date(reservation.getEndDate().getTime()));
         statement.setInt(3, reservation.getRoomToReserve());
+        statement.setString(4,reservation.getUsername());
         statement.executeUpdate();
     }
 
@@ -109,20 +110,7 @@ public class DataBaseConnexion {
         System.out.println(roomsMap);
     }
 
-    // pour les reservations
-//    public static void getReservations() throws SQLException {
-//        String query = "SELECT * FROM Reservations";
-//        Statement statement = connection.createStatement();
-//        ResultSet resultSet = statement.executeQuery(query);
-//        while(resultSet.next()) {
-//            int reservationNumber = resultSet.getInt("reservationnumber");
-//            Date beginDate = resultSet.getDate("begin_date");
-//            Date endDate = resultSet.getDate("end_date");
-//            int roomNumber = resultSet.getInt("room_number");
-//            Reservation reservation = new Reservation(reservationNumber, beginDate, endDate, roomNumber);
-//            reservationMap.put(reservationNumber, reservation);
-//        }
-//    }
+
 }
 
 

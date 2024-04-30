@@ -40,9 +40,11 @@ public class MainAuthenticate extends JFrame {
         public void actionPerformed(ActionEvent e) {
             UserView userView = new UserView();
             UserController userController = new UserController(userView);
-            ClientView clientview = new ClientView();
+
+
             User user = userController.getCurrentUser();
-            ClientController clientController = new ClientController(clientview,user);
+
+
             userView.setVisible(true);
         }
     }
