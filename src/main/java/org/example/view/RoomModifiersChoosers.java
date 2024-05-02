@@ -15,7 +15,7 @@ public class RoomModifiersChoosers extends JFrame {
     {
         JLabel chooseLabel = new JLabel("Choose an Action:");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
+        setLayout(new GridLayout(0,2,10,10));
         setSize(300,200);
         setLocationRelativeTo(null);
         JPanel panel = new JPanel();
@@ -33,4 +33,5 @@ public class RoomModifiersChoosers extends JFrame {
     public void onClickedCreateRoomView(ActionListener listener){createRoomButton.addActionListener(listener);}
     public void onClickedModifyRoomView(ActionListener listener){modifyRoomButton.addActionListener(listener);}
     public void onClickedDeleteRoomView(ActionListener listener){deleteRoomButton.addActionListener(listener);}
+
 }
