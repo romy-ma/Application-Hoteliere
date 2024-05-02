@@ -1,6 +1,4 @@
-package org.example.controller;
-
-import org.example.model.*;
+package org.example.model;
 
 import javax.swing.*;
 import java.io.BufferedReader;

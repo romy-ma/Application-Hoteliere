@@ -23,31 +23,13 @@ public class MainAuthenticate extends JFrame {
         getContentPane().add(panel);
 
         adminButton = new JButton("adminButton");
-        AdminButtonClick(new AdminButton());
         panel.add(adminButton);
 
         clientButton = new JButton("ClientButton");
-        ClientButtonClick(new ClientButton());
         panel.add(clientButton);
     }
-    public void AdminButtonClick(ActionListener listener){adminButton.addActionListener(listener);}
-    public void ClientButtonClick(ActionListener listener){clientButton.addActionListener(listener);}
-    class ClientButton implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            UserView userView = new UserView();
-            UserController userController = new UserController(userView);
-            userView.setVisible(true);
-        }
-    }
-    class AdminButton implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            AdminAuthenticate adminAuthenticate = new AdminAuthenticate();
-            AdminController adminController = new AdminController(adminAuthenticate);
-            adminAuthenticate.setVisible(true);
-        }
-    }
+    public void AdminButtonAddActionListener(ActionListener listener){adminButton.addActionListener(listener);}
+    public void ClientButtonActionListener(ActionListener listener){clientButton.addActionListener(listener);}
+
+
 }

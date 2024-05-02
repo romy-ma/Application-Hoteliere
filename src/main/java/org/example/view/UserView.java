@@ -39,7 +39,7 @@ public class UserView extends JFrame {
     }
 
     public String getUsername() {
-        return usernameField.getText();
+        return usernameField.getText().replace(" ","");
     }
 
     public String getPassword() {

@@ -1,11 +1,11 @@
 package org.example.controller;
 
+import org.example.model.DataBaseConnexion;
 import org.example.model.User;
 import org.example.view.UserView;
 
 import javax.swing.*;
 import java.sql.*;
-import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,38 +49,24 @@ public class UserController {
     class SignUpButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Retrieve user input from view
-            String username = userView.getUsername().replace(" ","");
+
+            String username = userView.getUsername();
             String password = userView.getPassword();
 
-            // Perform sign-up logic
             if (username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            // Check if username already exists in database
-            if (isUsernameExists(username)) {
+
+            if (DataBaseControler.isUserNameExist(username)) {
                     JOptionPane.showMessageDialog(null, "Username already exists. Please choose a different one.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
             }
-            // Create a new user object
+
             User newUser = new User(username, password);
-            try {
-                DataBaseConnexion.insertUsersIntoDatabase(newUser);
-                DataBaseConnexion.updateUsers();
-                JOptionPane.showMessageDialog(null, "User signed up successfully!");
-                return;
-            }catch (SQLException exp)
-            {
-                JOptionPane.showMessageDialog(null,"error in data base");
-            }
+            DataBaseControler.insertUserToDatBase(newUser);
+            DataBaseControler.updateUsers();
+            JOptionPane.showMessageDialog(null, "User signed up successfully!");
         }
     }
-
-    private boolean isUsernameExists(String username) {
-        return DataBaseConnexion.usersMap.containsKey(username);
-    }
-
-
-
 }
