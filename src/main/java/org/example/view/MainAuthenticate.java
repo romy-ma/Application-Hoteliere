@@ -1,15 +1,6 @@
 package org.example.view;
-
-import org.example.controller.AdminController;
-import org.example.controller.ClientController;
-import org.example.controller.UserController;
-import org.example.model.Admin;
-import org.example.model.User;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 public class MainAuthenticate extends JFrame {
     JButton adminButton;
@@ -25,32 +16,15 @@ public class MainAuthenticate extends JFrame {
         getContentPane().add(panel);
 
         adminButton = new JButton("adminButton");
-        AdminButtonClick(new AdminButton());
         panel.add(adminButton);
 
         clientButton = new JButton("ClientButton");
-        ClientButtonClick(new ClientButton());
         panel.add(clientButton);
     }
-    public void AdminButtonClick(ActionListener listener){adminButton.addActionListener(listener);}
-    public void ClientButtonClick(ActionListener listener){clientButton.addActionListener(listener);}
-    class ClientButton implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            UserView userView = new UserView();
-            UserController userController = new UserController(userView);
-            User user = new User(null,null);
-            userView.setVisible(true);
-        }
-    }
-    class AdminButton implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            AdminAuthenticate adminAuthenticate = new AdminAuthenticate();
-            AdminController adminController = new AdminController(adminAuthenticate);
-            adminAuthenticate.setVisible(true);
-        }
-    }
+
+    public void AdminButtonAddActionListener(ActionListener listener){adminButton.addActionListener(listener);}
+    public void ClientButtonActionListener(ActionListener listener){clientButton.addActionListener(listener);}
+
+
+
 }
