@@ -1,7 +1,10 @@
 package org.example.controller;
 
+
 import org.example.model.DataBaseConnexion;
+
 import org.example.model.User;
+import org.example.view.ClientView;
 import org.example.view.UserView;
 
 import javax.swing.*;
@@ -30,6 +33,8 @@ public class UserController {
             {
                     user = DataBaseConnexion.usersMap.get(username);
                     JOptionPane.showMessageDialog(null,"Login succecful");
+                    new ClientController(new ClientView(),user);
+
                     return;
             }
             else
@@ -68,5 +73,10 @@ public class UserController {
             DataBaseControler.updateUsers();
             JOptionPane.showMessageDialog(null, "User signed up successfully!");
         }
+        private boolean isUsernameExists(String username) {
+            return DataBaseConnexion.usersMap.containsKey(username);
+        }
     }
+
 }
+

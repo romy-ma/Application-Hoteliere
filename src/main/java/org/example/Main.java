@@ -14,6 +14,7 @@ public class Main {
                 DataBaseControler.getUsers();
                 DataBaseControler.getRooms();
                 MainAuthenticateController mainAuthenticateController = new MainAuthenticateController(new MainAuthenticate());
+
             }
         });
 
