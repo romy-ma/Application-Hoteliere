@@ -1,6 +1,8 @@
 package org.example.controller;
 
+import org.example.model.Admin;
 import org.example.model.DataBaseConnexion;
+import org.example.model.Reservation;
 import org.example.model.User;
 
 import javax.swing.*;
@@ -32,15 +34,16 @@ public class DataBaseControler {
         }
     }
 
-    public static void getAdmin()
+    public static Admin getAdmin()
     {
         try {
-            DataBaseConnexion.getAdminFromDataBase();
+            return DataBaseConnexion.getAdminFromDataBase();
         }
         catch(SQLException e)
         {
             JOptionPane.showMessageDialog(null,"Error while getting the admin");
         }
+        return null;
     }
     public static void getConnexion()
     {
@@ -79,5 +82,15 @@ public class DataBaseControler {
     public static boolean isUserNameExist(String userName)
     {
        return DataBaseConnexion.usersMap.containsKey(userName);
+    }
+    public static void insertReservationIntoDataBase(Reservation reservation)
+    {
+        try
+        {
+            DataBaseConnexion.insertReservationIntoDatabase(reservation);
+        }catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(null,"Error While Making Reservation");
+        }
     }
 }
