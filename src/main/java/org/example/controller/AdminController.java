@@ -98,7 +98,7 @@ public class AdminController {
                 Integer roomnumber = adminView.modifyRoomView.getRoomNumber();
                 if(DataBaseConnexion.roomsMap.containsKey(roomnumber))
                 {
-                    if(!DataBaseConnexion.roomsMap.get(roomnumber).isIsreserved())
+                    if(!DataBaseConnexion.roomsMap.get(roomnumber).isReserved())
                     {
                         DataBaseConnexion.insertModifiesRoom(new Room(price,roomnumber,false,roomType));
                     }
@@ -130,7 +130,7 @@ public class AdminController {
                 Integer roomNumber  = adminView.deleteRoomView.getRoomNumber();
                 if(DataBaseConnexion.roomsMap.containsKey(roomNumber))
                 {
-                    if(!DataBaseConnexion.roomsMap.get(roomNumber).isIsreserved())
+                    if(!DataBaseConnexion.roomsMap.get(roomNumber).isReserved())
                     {
                         DataBaseConnexion.deleteRoom(new Room(roomNumber));
                         JOptionPane.showMessageDialog(null,"Room Deleted Successfully");

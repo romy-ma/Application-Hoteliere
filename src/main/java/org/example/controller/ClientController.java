@@ -1,6 +1,7 @@
 package org.example.controller;
 
-import org.example.controller.DataBaseConnexion;
+
+import org.example.model.DataBaseConnexion;
 import org.example.model.Reservation;
 import org.example.model.Room;
 import org.example.model.User;
@@ -36,19 +37,16 @@ public class ClientController {
 
                 // Créer une nouvelle réservation
                 Reservation newReservation = new Reservation(availableRoom.getRoomnumber(),beginDate, endDate,user.getUsername());
-                try {
-                    // Insérer la réservation dans la base de données
-                    DataBaseConnexion.insertReservationIntoDatabase(newReservation);
 
-                    // Modifier l'état de réservation de l'utilisateur
-                    user.setReservationStatus(true);
+                // Insérer la réservation dans la base de données
+                DataBaseControler.insertReservationIntoDataBase(newReservation);
 
-                    // Informer l'utilisateur que la réservation a été effectuée avec succès
-                    JOptionPane.showMessageDialog(null, "Reservation successful!");
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Error occurred while making reservation.", "Error", JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
-                }
+                // Modifier l'état de réservation de l'utilisateur
+                user.setReservationStatus(true);
+
+                // Informer l'utilisateur que la réservation a été effectuée avec succès
+                JOptionPane.showMessageDialog(null, "Reservation successful!");
+
             } else {
                 JOptionPane.showMessageDialog(null, "No available rooms found.", "Error", JOptionPane.ERROR_MESSAGE);
             }

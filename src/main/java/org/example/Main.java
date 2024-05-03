@@ -1,7 +1,8 @@
 package org.example;
 import org.example.controller.DataBaseControler;
 import org.example.controller.MainAuthenticateController;
-import org.example.view.MainAuthenticate;
+import org.example.view.MainPage;
+
 import javax.swing.*;
 
 public class Main {
@@ -9,11 +10,12 @@ public class Main {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+
                 DataBaseControler.getConnexion();
                 DataBaseControler.getAdmin();
                 DataBaseControler.getUsers();
                 DataBaseControler.getRooms();
-                MainAuthenticateController mainAuthenticateController = new MainAuthenticateController(new MainAuthenticate());
+                MainAuthenticateController mainAuthenticateController = new MainAuthenticateController(new MainPage());
 
             }
         });
