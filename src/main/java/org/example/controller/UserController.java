@@ -4,10 +4,8 @@ package org.example.controller;
 import org.example.model.DataBaseConnexion;
 
 import org.example.model.User;
-import org.example.view.ClientView;
+import org.example.view.*;
 import org.example.view.LoginUser;
-import org.example.view.LoginUser;
-import org.example.view.SigneUpUser;
 
 import javax.swing.*;
 import java.sql.*;
@@ -18,12 +16,14 @@ import java.awt.event.ActionListener;
 public class UserController {
     private LoginUser loginUser;
     private SigneUpUser signeUpUser;
+    MainPage mainPage;
     private User user;
 
-    public UserController(LoginUser loginUser)  {
+    public UserController(LoginUser loginUser, MainPage mainPage)  {
         this.loginUser = loginUser;
         loginUser.onLogInButtonClicked(new LogInButtonListener());
         loginUser.onSignUpButtonClicked(new SigneUpToPageButton());
+        this.mainPage = mainPage;
     }
 
     class LogInButtonListener implements ActionListener {
@@ -37,6 +37,12 @@ public class UserController {
                     user = DataBaseConnexion.usersMap.get(username);
                     JOptionPane.showMessageDialog(null,"Login succecful");
                     new ClientController(new ClientView(),user);
+                    loginUser.dispose();
+                    if(signeUpUser !=null)
+                    {
+                        signeUpUser.dispose();
+                    }
+                    mainPage.dispose();
                     
             }
             else
