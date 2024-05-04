@@ -34,7 +34,7 @@ public class MainAuthenticateController {
         @Override
         public void actionPerformed(ActionEvent e) {
             LoginUser loginUser = new LoginUser();
-            UserController userController = new UserController(loginUser);
+            UserController userController = new UserController(loginUser,mainAuthenticate);
             loginUser.setVisible(true);
         }
     }
