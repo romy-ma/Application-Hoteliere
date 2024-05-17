@@ -1,6 +1,4 @@
-package org.example.controller;
-
-import org.example.model.*;
+package org.example.model;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -95,6 +93,30 @@ public class DataBaseConnexion {
         statement.executeUpdate();
     }
 
+
+    public static void insertModifiesRoom(Room room) throws SQLException
+    {
+        String querry ="UPDATE ROOMS SET price = ? , room_type = ? WHERE roomnumber = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(querry);
+        preparedStatement.setInt(1,room.getRoomprice());
+        preparedStatement.setObject(2,room.getRoomtype(),Types.OTHER);
+        preparedStatement.setInt(3,room.getRoomnumber());
+        preparedStatement.executeUpdate();
+        JOptionPane.showMessageDialog(null,"inserted Succecfully");
+    }
+
+    public static void deleteRoom(Room room)throws SQLException
+    {
+        String deletRoomQuerry = "DELETE FROM ROOMS WHERE roomnumber = ?";
+        String deleteRoomFromReservation =  "DELETE FROM RESERVATIONS WHERE room_number = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(deletRoomQuerry);
+        PreparedStatement preparedStatement1 = connection.prepareStatement(deleteRoomFromReservation);
+        preparedStatement.setInt(1,room.getRoomnumber());
+        preparedStatement1.setInt(1,room.getRoomnumber());
+        preparedStatement1.executeUpdate();
+        preparedStatement.executeUpdate();
+    }
+
     public static void insertReservationIntoDatabase(Reservation reservation) throws SQLException {
         String query = "INSERT INTO Reservations (begin_date, end_date, room_number,username) VALUES (?, ?, ?,?)";
         PreparedStatement statement = DataBaseConnexion.connection.prepareStatement(query);
@@ -105,10 +127,6 @@ public class DataBaseConnexion {
         statement.executeUpdate();
     }
 
-    public static void PrintData()
-    {
-        System.out.println(roomsMap);
-    }
 
 
 }

@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import org.example.model.DateException;
+import org.example.model.HotelDate;
 
 public class ClientView {
     private JTextField beginDayField;
@@ -50,26 +52,26 @@ public class ClientView {
         frame.setVisible(true);
     }
 
-    // Method to get the begin date entered by the user
-    public Date getBeginDate() {
-        // Parse the text fields to get day, month, and year
+    
+    public HotelDate getBeginDate() throws DateException {
+        
         int beginDay = Integer.parseInt(beginDayField.getText());
         int beginMonth = Integer.parseInt(beginMonthField.getText());
         int beginYear = Integer.parseInt(beginYearField.getText());
 
-        // Create a java.sql.Date object
-        return new Date(beginYear - 1900, beginMonth - 1, beginDay);
+        
+        return new HotelDate(beginDay, beginMonth, beginYear);
     }
 
-    // Method to get the end date entered by the user
-    public Date getEndDate() {
-        // Parse the text fields to get day, month, and year
+    // recuperer date fin 
+    public HotelDate getEndDate() throws DateException {
+       
         int endDay = Integer.parseInt(endDayField.getText());
         int endMonth = Integer.parseInt(endMonthField.getText());
         int endYear = Integer.parseInt(endYearField.getText());
 
-        // Create a java.sql.Date object
-        return new Date(endYear - 1900, endMonth - 1, endDay);
+        //creation de lobjet hoteldate 
+        return new HotelDate(endDay, endMonth, endYear);
     }
 
     // Method to set action listener for reserve button
