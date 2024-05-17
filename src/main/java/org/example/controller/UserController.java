@@ -8,6 +8,7 @@ import org.example.view.*;
 import org.example.view.LoginUser;
 
 import javax.swing.*;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,32 +31,44 @@ public class UserController {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Retrieve user input from view
-            String username = loginUser.getUsername().replace(" ","");
-            String password = loginUser.getPassword();
-            if(DataBaseConnexion.usersMap.containsKey(username) && DataBaseConnexion.usersMap.get(username).getPassword().equals(password))
+            try
             {
+                String username = loginUser.getUsername();
+                String password = DataBaseConnexion.hashString(loginUser.getPassword());
+                if(DataBaseConnexion.usersMap.containsKey(username) && DataBaseConnexion.usersMap.get(username).getPassword().equals(password))
+                {
                     user = DataBaseConnexion.usersMap.get(username);
-                    JOptionPane.showMessageDialog(null,"Login succecful");
+
+                    if(DataBaseConnexion.hashString(user.getPassword()).equals(DataBaseConnexion.hashString(password)))
+                    {
+                        JOptionPane.showMessageDialog(null,"Login succecful");
+                    }
+
                     new ClientController(new ClientView(),user);
                     loginUser.dispose();
                     if(signeUpUser !=null)
                     {
                         signeUpUser.dispose();
                     }
-                    mainPage.dispose();
-                    
-            }
-            else
-            {
-                if(!DataBaseConnexion.usersMap.containsKey(username))
-                {
-                    JOptionPane.showMessageDialog(null,"wrong username,Try again");
+
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null,"wrong password,Try again");
+                    if(!DataBaseConnexion.usersMap.containsKey(username))
+                    {
+                        JOptionPane.showMessageDialog(null,"wrong username,Try again","Wrong Username",JOptionPane.ERROR_MESSAGE);
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null,"wrong password,Try again","Wrong Password",JOptionPane.ERROR_MESSAGE);
+                    }
                 }
+            }catch (NoSuchAlgorithmException ep)
+            {
+                ep.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Failed To Hash Password","Hash Fail",JOptionPane.ERROR_MESSAGE);
             }
+
         }
     }
     class SigneUpToPageButton implements ActionListener{
@@ -71,25 +84,37 @@ public class UserController {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            String username = signeUpUser.getUsername();
-            String password = signeUpUser.getPassword();
 
-            if (username.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            try {
+                String username = signeUpUser.getUsername();
+                String password = DataBaseConnexion.hashString(signeUpUser.getPassword());
+                String email = signeUpUser.getEmail();
+                if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if(!User.isValidEmail(email))
+                {
+                    JOptionPane.showMessageDialog(null,"Wrong Email Typo ","Email Error",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-            if (DataBaseControler.isUserNameExist(username)) {
+                if (DataBaseControler.isUserNameExist(username)) {
                     JOptionPane.showMessageDialog(null, "Username already exists. Please choose a different one.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
+                }
+
+                User newUser = new User(username, password,email);
+                DataBaseControler.insertUserToDatBase(newUser);
+                DataBaseControler.updateUsers();
+                JOptionPane.showMessageDialog(null, "User signed up successfully!");
+                loginUser.setVisible(true);
+                signeUpUser.dispose();
+            } catch (NoSuchAlgorithmException ex) {
+               JOptionPane.showMessageDialog(null,"Error While Hashing","Hashaging Error",JOptionPane.ERROR_MESSAGE);
             }
 
-            User newUser = new User(username, password);
-            DataBaseControler.insertUserToDatBase(newUser);
-            DataBaseControler.updateUsers();
-            JOptionPane.showMessageDialog(null, "User signed up successfully!");
-            loginUser.setVisible(true);
-            signeUpUser.dispose();
+
         }
     }
 

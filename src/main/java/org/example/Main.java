@@ -10,13 +10,11 @@ public class Main {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-
                 DataBaseControler.getConnexion();
                 DataBaseControler.getAdmin();
                 DataBaseControler.getUsers();
                 DataBaseControler.getRooms();
                 MainAuthenticateController mainAuthenticateController = new MainAuthenticateController(new MainPage());
-
             }
         });
 

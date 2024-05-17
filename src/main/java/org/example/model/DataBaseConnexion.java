@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.HashMap;
 
@@ -86,10 +88,11 @@ public class DataBaseConnexion {
         preparedStatement.executeUpdate();
     }
     public static void insertUsersIntoDatabase(User user) throws SQLException {
-        String query = "INSERT INTO Clients (username, password) VALUES (?, ?)";
+        String query = "INSERT INTO Clients (username, password,email) VALUES (?, ?,?)";
         PreparedStatement statement = DataBaseConnexion.connection.prepareStatement(query);
         statement.setString(1, user.getUsername());
         statement.setString(2, user.getPassword());
+        statement.setString(3,user.getEmail());
         statement.executeUpdate();
     }
 
@@ -125,6 +128,19 @@ public class DataBaseConnexion {
         statement.setInt(3, reservation.getRoomToReserve());
         statement.setString(4,reservation.getUsername());
         statement.executeUpdate();
+    }
+    public static String hashString(String stringToHash) throws NoSuchAlgorithmException
+    {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(stringToHash.getBytes());
+
+        byte[] hashedBytes = md.digest();
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashedBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 
 

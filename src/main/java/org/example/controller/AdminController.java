@@ -15,9 +15,11 @@ public class AdminController {
     Admin admin;
     AdminAuthenticate adminAuthenticate;
     RoomModifiersChoosers adminView;
-    public AdminController(AdminAuthenticate adminAuthenticate) {
+    MainPage mainPage;
+    public AdminController(AdminAuthenticate adminAuthenticate,MainPage mainPage) {
         this.adminAuthenticate = adminAuthenticate;
         adminAuthenticate.onLoginButtonClicked(new LogInButtonListener());
+        this.mainPage = mainPage;
     }
 
     class LogInButtonListener implements ActionListener {
@@ -35,6 +37,7 @@ public class AdminController {
                     adminView.onClickedCreateRoomView(new ButtonChooser1());
                     adminView.onClickedDeleteRoomView(new ButtonChooser3());
                     adminView.setVisible(true);
+                    adminAuthenticate.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "wrong username or password");
                 }

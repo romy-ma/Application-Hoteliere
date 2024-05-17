@@ -60,7 +60,7 @@ public class SigneUpUser extends javax.swing.JFrame {
         usernameField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
-        jTextField2 = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -98,10 +98,10 @@ public class SigneUpUser extends javax.swing.JFrame {
         passwordField.setText("   passwordField");
         passwordField.setBorder(new javax.swing.border.LineBorder(new Color(204, 204, 204), 3, true));
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTextField2.setForeground(new Color(204, 204, 204));
-        jTextField2.setText("   Enter ur Email ");
-        jTextField2.setBorder(new javax.swing.border.LineBorder(new Color(204, 204, 204), 3, true));
+        emailField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        emailField.setForeground(new Color(204, 204, 204));
+        emailField.setText("   Enter ur Email ");
+        emailField.setBorder(new javax.swing.border.LineBorder(new Color(204, 204, 204), 3, true));
        
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new Color(75, 19, 79));
@@ -129,7 +129,7 @@ public class SigneUpUser extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(135, 135, 135)
                         .addComponent(signeUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -147,7 +147,7 @@ public class SigneUpUser extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,6 +211,10 @@ public class SigneUpUser extends javax.swing.JFrame {
     public void onSignUpButtonClicked(ActionListener listener) {
         signeUpButton.addActionListener(listener);
     }
+    public String getEmail()
+    {
+        return  emailField.getText();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton signeUpButton;
@@ -223,6 +227,6 @@ public class SigneUpUser extends javax.swing.JFrame {
     private JPanel jPanel2;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField usernameField;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField emailField;
     // End of variables declaration//GEN-END:variables
 }
