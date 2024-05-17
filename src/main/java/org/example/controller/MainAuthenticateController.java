@@ -25,7 +25,8 @@ public class MainAuthenticateController {
         @Override
         public void actionPerformed(ActionEvent e) {
             AdminAuthenticate adminAuthenticate = new AdminAuthenticate();
-            AdminController adminController = new AdminController(adminAuthenticate);
+            AdminController adminController = new AdminController(adminAuthenticate,mainAuthenticate);
+            mainAuthenticate.dispose();
             adminAuthenticate.setVisible(true);
         }
     }
@@ -35,6 +36,7 @@ public class MainAuthenticateController {
         public void actionPerformed(ActionEvent e) {
             LoginUser loginUser = new LoginUser();
             UserController userController = new UserController(loginUser,mainAuthenticate);
+            mainAuthenticate.dispose();
             loginUser.setVisible(true);
         }
     }
