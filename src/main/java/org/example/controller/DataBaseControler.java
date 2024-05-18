@@ -7,7 +7,7 @@ import org.example.model.User;
 
 import javax.swing.*;
 import javax.xml.crypto.Data;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DataBaseControler {
     public static void getRooms()
@@ -93,4 +93,34 @@ public class DataBaseControler {
             JOptionPane.showMessageDialog(null,"Error While Making Reservation");
         }
     }
+
+    public static int getReservationByUsername(String username) {
+        int reservationNumber = 0;
+
+        // Connexion à la base de données
+        try (Connection connection = DriverManager.getConnection("url_de_connexion", "utilisateur", "mot_de_passe")) {
+            // Requête SQL pour récupérer le numéro de réservation de l'utilisateur
+            String selectSql = "SELECT reservation_number FROM clients WHERE username = ?";
+            String deleteSql = "UPDATE clients SET reservation_number = NULL WHERE username = ?";
+
+            try (PreparedStatement selectStatement = connection.prepareStatement(selectSql);
+                 PreparedStatement deleteStatement = connection.prepareStatement(deleteSql)) {
+                selectStatement.setString(1, username);
+                ResultSet resultSet = selectStatement.executeQuery();
+
+                // Récupérer le numéro de réservation s'il existe
+                if (resultSet.next()) {
+                    reservationNumber = resultSet.getInt("reservation_number");
+                    // Supprimer le numéro de réservation de la table clients
+                    deleteStatement.setString(1, username);
+                    deleteStatement.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reservationNumber;
+    }
+
 }
