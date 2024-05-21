@@ -5,11 +5,9 @@ import org.example.model.DataBaseConnexion;
 
 import org.example.model.User;
 import org.example.view.*;
-import org.example.view.LoginUser;
 
 import javax.swing.*;
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

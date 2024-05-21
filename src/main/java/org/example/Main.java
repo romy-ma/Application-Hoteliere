@@ -1,14 +1,9 @@
 package org.example;
 import org.example.controller.DataBaseControler;
 import org.example.controller.MainAuthenticateController;
-import org.example.model.DataBaseConnexion;
-import org.example.model.Room;
-import org.example.view.AdminView;
 import org.example.view.MainPage;
-import org.example.view.RoomPanel;
 
 import javax.swing.*;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
