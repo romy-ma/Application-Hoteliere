@@ -14,11 +14,11 @@ import java.sql.*;
 public class AdminController {
     Admin admin;
     AdminAuthenticate adminAuthenticate;
-    RoomModifiersChoosers adminView;
+    AdminView adminView;
     MainPage mainPage;
     public AdminController(AdminAuthenticate adminAuthenticate,MainPage mainPage) {
         this.adminAuthenticate = adminAuthenticate;
-        adminAuthenticate.onLoginButtonClicked(new LogInButtonListener());
+        adminAuthenticate.onLogInButtonClicked(new LogInButtonListener());
         this.mainPage = mainPage;
     }
 
@@ -26,13 +26,13 @@ public class AdminController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String username = adminAuthenticate.getUsername().replace(" ","");
-            String password = adminAuthenticate.getpassword();
+            String password = adminAuthenticate.getPassword();
             try {
                 Admin test = DataBaseConnexion.getAdminFromDataBase();
                 if (username.equals(test.getUsername()) && password.equals(test.getPassword())) {
                     admin = test;
                     JOptionPane.showMessageDialog(null, "Login Succesful\n welcome back Admin");
-                    adminView = new RoomModifiersChoosers();
+                    adminView = new AdminView();
                     adminView.onClickedModifyRoomView(new ButtonChooser2());
                     adminView.onClickedCreateRoomView(new ButtonChooser1());
                     adminView.onClickedDeleteRoomView(new ButtonChooser3());
