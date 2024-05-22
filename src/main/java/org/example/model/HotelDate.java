@@ -1,10 +1,14 @@
 package org.example.model;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Calendar;
+
 public class HotelDate {
     private int Day,Month,Year;
     //creating HotelDate class for managing dates instead of the date class
     public HotelDate(int day,int month,int year) throws DateException{
-        if(DateValid(day, month, year))
+        if(DateValid(day, month, year)&&isAfterToday(day,month,year))
         {
             this.Day = day;
             this.Month = month;
@@ -15,7 +19,51 @@ public class HotelDate {
             throw new DateException("error in Date");
             //throwing an exception if the date is not valide
         }
-    };
+    }
+
+    @Override
+    public String toString() {
+        return "HotelDate{" +
+                "Day=" + Day +
+                ", Month=" + Month +
+                ", Year=" + Year +
+                '}';
+    }
+
+    public boolean isAfterToday(int Day, int Month, int Year)
+    {
+        LocalDate localDate = LocalDate.now();
+        if(Year > localDate.getYear())
+        {
+            return true;
+        }
+        else if(Year == localDate.getYear())
+        {
+            if(Month > localDate.getMonthValue())
+            {
+                return true;
+            }
+            else if(Month == localDate.getMonthValue())
+            {
+                if(Day > localDate.getDayOfMonth())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
     //generate getter sand setters
     public int getDay() {
         return Day;
@@ -57,6 +105,12 @@ public class HotelDate {
         }
         return true;
     }
+    public void set(int Day ,int Month ,int Year)
+    {
+        this.Day = Day;
+        this.Month = Month;
+        this.Year = Year;
+    }
     //method to give the numnber of days in a month
     public int NumberOfDaysInMonth(int month ,int year)
     {
@@ -83,7 +137,50 @@ public class HotelDate {
         }
     }
 
+    public Date toSqlDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Year, Month - 1, Day); // Calendar months are 0-based
+        return new Date(calendar.getTimeInMillis());
+    }
+
     public long getTime() {
         return 0;
+    }
+
+    public int compareTo(HotelDate endDate) {
+        if(this.Year > endDate.Year)
+        {
+            return 1;
+        }
+        else if(this.Year < endDate.Year)
+        {
+            return -1;
+        }
+        else
+        {
+            if(this.Month > endDate.Month)
+            {
+                return 1;
+            }
+            else if(this.Month < endDate.Month)
+            {
+                return -1;
+            }
+            else
+            {
+                if(this.Day > endDate.Day)
+                {
+                    return 1;
+                }
+                else if(this.Day < endDate.Day)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
     }
 }

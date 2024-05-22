@@ -34,8 +34,9 @@ public class RoomPanel extends javax.swing.JPanel {
         roomType = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         roomPrice = new javax.swing.JLabel();
-        declineButton = new javax.swing.JButton();
-        acceptButton = new javax.swing.JButton();
+        reserveButton = new javax.swing.JButton();
+
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setText("RoomNumber:");
 
@@ -49,9 +50,8 @@ public class RoomPanel extends javax.swing.JPanel {
 
         roomPrice.setText("jLabel5");
 
-        declineButton.setText("Decline");
-
-        acceptButton.setText("Accept");
+        reserveButton.setText("Reserve");
+        reserveButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -67,10 +67,8 @@ public class RoomPanel extends javax.swing.JPanel {
                     .addComponent(roomType, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                     .addComponent(roomNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(roomPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
-                .addComponent(acceptButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(declineButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 537, Short.MAX_VALUE)
+                .addComponent(reserveButton)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -86,8 +84,7 @@ public class RoomPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(roomPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(declineButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(acceptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(reserveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -105,12 +102,27 @@ public class RoomPanel extends javax.swing.JPanel {
     {
         this.roomPrice.setText(roomPrice.toString());
     }
+    public int getRoomPrice()
+    {
+        return Integer.parseInt(roomPrice.getText());
+    }
+    public int getRoomNumber()
+    {
+        return Integer.parseInt(roomNumber.getText());
+    }
+    public Building getRoomType()
+    {
+        return Building.valueOf(roomType.getText());
+    }
+    public void OnClickedReserveButton(java.awt.event.ActionListener listener)
+    {
+        reserveButton.addActionListener(listener);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton acceptButton;
-    private javax.swing.JButton declineButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton reserveButton;
     private javax.swing.JLabel roomNumber;
     private javax.swing.JLabel roomPrice;
     private javax.swing.JLabel roomType;

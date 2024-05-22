@@ -48,7 +48,9 @@ public class DataBaseConnexion {
            {
                String username = resultSet.getString("username");
                String password = resultSet.getString("password");
-               user = new User(username,password);
+               String email = resultSet.getString("email");
+               int reservationNumber = resultSet.getInt("reservation_number");
+               user = new User(username,password,email,reservationNumber);
                usersMap.put(user.getUsername(),user);
            }
        }
@@ -122,12 +124,75 @@ public class DataBaseConnexion {
 
     public static void insertReservationIntoDatabase(Reservation reservation) throws SQLException {
         String query = "INSERT INTO Reservations (begin_date, end_date, room_number,username) VALUES (?, ?, ?,?)";
+        String query2 = "UPDATE Rooms SET is_reserved = true WHERE roomnumber = ?";
+        String query3 = "UPDATE Clients SET reservation_number = ? WHERE username = ?";
         PreparedStatement statement = DataBaseConnexion.connection.prepareStatement(query);
-        statement.setDate(1, new java.sql.Date(reservation.getBeginDate().getTime()));
-        statement.setDate(2, new java.sql.Date(reservation.getEndDate().getTime()));
+        PreparedStatement statement2 = DataBaseConnexion.connection.prepareStatement(query2);
+        PreparedStatement statement3 = DataBaseConnexion.connection.prepareStatement(query3);
+        statement.setDate(1, new java.sql.Date(reservation.getBeginDate().toSqlDate().getTime()));
+        statement.setDate(2, new java.sql.Date(reservation.getEndDate().toSqlDate().getTime()));
         statement.setInt(3, reservation.getRoomToReserve());
         statement.setString(4,reservation.getUsername());
         statement.executeUpdate();
+        statement2.setInt(1,reservation.getRoomToReserve());
+        statement2.executeUpdate();
+        String query4 = "SELECT reservation_number FROM Reservations WHERE room_number = ? AND username = ?";
+        PreparedStatement statement4 = connection.prepareStatement(query4);
+        statement4.setInt(1,reservation.getRoomToReserve());
+        statement4.setString(2,reservation.getUsername());
+        ResultSet resultSet = statement4.executeQuery();
+        resultSet.next();
+        int reservationNumber = resultSet.getInt("reservation_number");
+        statement3.setInt(1,reservationNumber);
+        statement3.setString(2,reservation.getUsername());
+        statement3.executeUpdate();
+
+    }
+    public static Reservation getReservationFromDataBase(String username) throws SQLException {
+        String query = "SELECT * FROM Reservations WHERE username = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, username);
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        return new Reservation(resultSet.getInt("room_number"), resultSet.getString("username"));
+    }
+    public static void getReservationsFromdataBase() throws SQLException, DateException {
+        String query = "SELECT * FROM Reservations";
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+        Reservation reservation = null;
+        while(resultSet.next())
+        {
+            int reservationNumber = resultSet.getInt("reservation_number");
+            int roomNumber = resultSet.getInt("room_number");
+            String username = resultSet.getString("username");
+            Date beginDate = resultSet.getDate("begin_date");
+            Date endDate = resultSet.getDate("end_date");
+            HotelDate begin = new HotelDate(beginDate.getDate(),beginDate.getMonth()+1,beginDate.getYear()+1900);
+            HotelDate end = new HotelDate(endDate.getDate(),endDate.getMonth()+1,endDate.getYear()+1900);
+            reservation = new Reservation(roomNumber,begin,end,username);
+            reservationMap.put(reservationNumber,reservation);
+
+        }
+
+    }
+    public static void CancelReservationFromDataBase(String username) throws SQLException {
+        String query1 = "UPDATE Rooms SET is_reserved = false WHERE roomnumber = (SELECT room_number FROM Reservations WHERE username = ?)";
+        PreparedStatement statement1 = connection.prepareStatement(query1);
+        statement1.setString(1, username);
+        statement1.executeUpdate();
+        String query2 = "UPDATE Clients SET reservation_number = NULL WHERE username = ?";
+        PreparedStatement statement2 = connection.prepareStatement(query2);
+        statement2.setString(1, username);
+        statement2.executeUpdate();
+        String query = "DELETE FROM Reservations WHERE username = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, username);
+        statement.executeUpdate();
+        reservationMap.remove(usersMap.get(username).getReservationNumber());
+    }
+    public static void updateReservations() throws SQLException, DateException {
+        getReservationsFromdataBase();
     }
     public static String hashString(String stringToHash) throws NoSuchAlgorithmException
     {

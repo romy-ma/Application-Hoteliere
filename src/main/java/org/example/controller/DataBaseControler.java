@@ -1,9 +1,6 @@
 package org.example.controller;
 
-import org.example.model.Admin;
-import org.example.model.DataBaseConnexion;
-import org.example.model.Reservation;
-import org.example.model.User;
+import org.example.model.*;
 
 import javax.swing.*;
 import javax.xml.crypto.Data;
@@ -91,9 +88,47 @@ public class DataBaseControler {
         }catch (SQLException e)
         {
             JOptionPane.showMessageDialog(null,"Error While Making Reservation");
+            e.printStackTrace();
         }
     }
-
+    public static void getRservationsFromDataBase()
+    {
+        try {
+            DataBaseConnexion.getReservationsFromdataBase();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Error While Getting Reservations");
+            e.printStackTrace();
+        } catch (DateException e) {
+            JOptionPane.showMessageDialog(null,"Error While Getting Reservations in Date");
+            e.printStackTrace();
+        }
+    }
+    public static Reservation getReservationByUserName(String userName) {
+        try {
+            return DataBaseConnexion.getReservationFromDataBase(userName);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error While Getting Reservation");
+        }
+        return null;
+    }
+    public static void CancelReservationFromDataBase(String userName) {
+        try {
+            DataBaseConnexion.CancelReservationFromDataBase(userName);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error While Canceling Reservation");
+            e.printStackTrace();
+        }
+    }
+    public static void updateReservations()
+    {
+        try {
+            DataBaseConnexion.updateReservations();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Error While Updating Reservations");
+        } catch (DateException e) {
+            JOptionPane.showMessageDialog(null,"Error While Updating Reservations in Date");
+        }
+    }
     public static int getReservationByUsername(String username) {
         int reservationNumber = 0;
 

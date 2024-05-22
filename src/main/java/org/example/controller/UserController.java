@@ -48,10 +48,6 @@ public class UserController {
                     {
                         signeUpUser.dispose();
                     }
-                    new ClientCancelController(new ClientCancelView(),user);
-
-
-
                 }
                 else
                 {

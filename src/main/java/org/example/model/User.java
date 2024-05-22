@@ -22,6 +22,12 @@ public class User {
         this.password = password;
         this.email = email;
     }
+    public User(String username, String password,String email,int reservationNumber) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.reservationNumber = reservationNumber;
+    }
 
     // Getters and setters
 
