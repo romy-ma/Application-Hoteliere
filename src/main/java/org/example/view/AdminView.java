@@ -4,8 +4,12 @@
  */
 package org.example.view;
 
+import org.example.model.DataBaseConnexion;
+import org.example.model.Room;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 /**
  *
@@ -37,6 +41,17 @@ public class AdminView extends javax.swing.JFrame {
         reservationsPanel = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+
+        for(Map.Entry<Integer, Room> entry : DataBaseConnexion.roomsMap.entrySet()) {
+            RoomPanel roomPanel = new RoomPanel();
+            roomPanel.addRoomNumber(entry.getValue().getRoomnumber());
+            roomPanel.addRoomType(entry.getValue().getRoomtype());
+            roomPanel.addRoomPrice(entry.getValue().getRoomprice());
+            container.add(roomPanel);
+        }
+        reservationsPanel.setViewportView(container);
 
         createRoomButton.setText("Create Room");
 
@@ -101,36 +116,8 @@ public class AdminView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
 
-    }
     public void onClickedCreateRoomView(ActionListener actionListener)
     {
         createRoomButton.addActionListener(actionListener);
