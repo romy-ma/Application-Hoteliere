@@ -23,7 +23,7 @@ public class HotelDate {
 
     @Override
     public String toString() {
-        return "HotelDate{" +
+        return "{" +
                 "Day=" + Day +
                 ", Month=" + Month +
                 ", Year=" + Year +

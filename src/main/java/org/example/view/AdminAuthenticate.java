@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 
 public class AdminAuthenticate extends JFrame {
+    public AdminView adminView;
 
     /**
      * Creates new form LOGIN
