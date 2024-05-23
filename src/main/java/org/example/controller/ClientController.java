@@ -16,12 +16,14 @@ import java.sql.SQLException;
 public class ClientController {
     private ClientView clientView;
      User user;
+
     Reservation reservation;
     ReservationFrame reservationFrame;
 
     public ClientController(ClientView clientView, User user) {
         this.clientView = clientView;
         this.user = user;
+
         reservation = DataBaseConnexion.reservationMap.get(DataBaseConnexion.usersMap.get(user.getUsername()).getReservationNumber());
         clientView.onClickedViewReservationButton(new ViewReservationButtonListener());
         clientView.onClickedLogOutButton(new LogOutButtonListener());
@@ -70,9 +72,15 @@ public class ClientController {
                 JOptionPane.showMessageDialog(null, "Reservation created", "Reservation created", JOptionPane.INFORMATION_MESSAGE);
                 DataBaseControler.updateUsers();
                 DataBaseControler.updateReservations();
-                reservation = DataBaseConnexion.reservationMap.get(DataBaseConnexion.usersMap.get(user.getUsername()).getReservationNumber());
-                user = DataBaseConnexion.usersMap.get(user.getUsername());
+                DataBaseControler.updateRooms();
+                user= DataBaseConnexion.usersMap.get(user.getUsername());
                 reservationFrame.dispose();
+                clientView.updateUI();
+
+                    for(int i=0;i<clientView.roomPanels.size();i++)
+                    {
+                        clientView.roomPanels.get(i).OnClickedReserveButton(new RservationButtonListener(i));
+                    }
 
                 } else {
                     JOptionPane.showMessageDialog(null, "End date must be after begin date", "Wrong Date", JOptionPane.ERROR_MESSAGE);
@@ -96,6 +104,8 @@ public class ClientController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            reservation = DataBaseConnexion.reservationMap.get(DataBaseConnexion.usersMap.get(user.getUsername()).getReservationNumber());
+
             if(user.getReservationNumber() == 0 || reservation == null)
             {
                 JOptionPane.showMessageDialog(null,"You have no reservation","Reservation Infog",JOptionPane.INFORMATION_MESSAGE);
@@ -111,6 +121,7 @@ public class ClientController {
                 String endDate = reservation.getEndDate().toString();
                 reservationInfo = new String(username + "\n" + reservationNumber + "\n" + roomNumber + "\n" + beginDate + "\n" + endDate);
 
+
                 Object[] options = {"Ok","Cancel Reservation"};
                 int choice  = JOptionPane.showOptionDialog(null,reservationInfo,"Reservation Info",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
                 if(choice == 1)
@@ -120,7 +131,14 @@ public class ClientController {
                     DataBaseControler.updateUsers();
                     reservation = null;
                     DataBaseControler.updateReservations();
+                    DataBaseControler.updateRooms();
                     user = DataBaseConnexion.usersMap.get(user.getUsername());
+                    clientView.updateUI();
+
+                    for(int i=0;i<clientView.roomPanels.size();i++)
+                    {
+                        clientView.roomPanels.get(i).OnClickedReserveButton(new RservationButtonListener(i));
+                    }
                 }
             }
         }

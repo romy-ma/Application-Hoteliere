@@ -45,12 +45,15 @@ public class ClientView extends JFrame {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         for(Map.Entry<Integer, Room> entry : DataBaseConnexion.roomsMap.entrySet()) {
-            RoomPanel roomPanel = new RoomPanel();
-            roomPanel.addRoomNumber(entry.getValue().getRoomnumber());
-            roomPanel.addRoomType(entry.getValue().getRoomtype());
-            roomPanel.addRoomPrice(entry.getValue().getRoomprice());
-            roomPanels.add(roomPanel);
-            container.add(roomPanel);
+            if(!entry.getValue().isReserved())
+            {
+                RoomPanel roomPanel = new RoomPanel();
+                roomPanel.addRoomNumber(entry.getValue().getRoomnumber());
+                roomPanel.addRoomType(entry.getValue().getRoomtype());
+                roomPanel.addRoomPrice(entry.getValue().getRoomprice());
+                container.add(roomPanel);
+                roomPanels.add(roomPanel);
+            }
         }
         reservationsPanel.setViewportView(container);
 
@@ -111,7 +114,25 @@ public class ClientView extends JFrame {
         pack();
         setVisible(true);
     }// </editor-fold>//GEN-END:initComponents
-
+    public void updateUI()
+    {
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        for(Map.Entry<Integer, Room> entry : DataBaseConnexion.roomsMap.entrySet()) {
+            if(!entry.getValue().isReserved())
+            {
+                RoomPanel roomPanel = new RoomPanel();
+                roomPanel.addRoomNumber(entry.getValue().getRoomnumber());
+                roomPanel.addRoomType(entry.getValue().getRoomtype());
+                roomPanel.addRoomPrice(entry.getValue().getRoomprice());
+                container.add(roomPanel);
+                roomPanels.add(roomPanel);
+                container.revalidate();
+                container.repaint();
+            }
+        }
+        reservationsPanel.setViewportView(container);
+    }
 
 
 

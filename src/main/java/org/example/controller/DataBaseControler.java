@@ -103,20 +103,21 @@ public class DataBaseControler {
             e.printStackTrace();
         }
     }
-    public static Reservation getReservationByUserName(String userName) {
-        try {
-            return DataBaseConnexion.getReservationFromDataBase(userName);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error While Getting Reservation");
-        }
-        return null;
-    }
+
     public static void CancelReservationFromDataBase(String userName) {
         try {
             DataBaseConnexion.CancelReservationFromDataBase(userName);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error While Canceling Reservation");
             e.printStackTrace();
+        }
+    }
+    public static void updateRooms()
+    {
+        try {
+            DataBaseConnexion.updateRooms();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Error While Updating Rooms");
         }
     }
     public static void updateReservations()

@@ -22,12 +22,15 @@ public class User {
         this.password = password;
         this.email = email;
     }
-    public User(String username, String password,String email,int reservationNumber) {
+    public User(String username, String password,String email,int reservationNumber,boolean reservationStatus) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.reservationNumber = reservationNumber;
+        this.reservationStatus = reservationStatus;
     }
+
+
 
     // Getters and setters
 

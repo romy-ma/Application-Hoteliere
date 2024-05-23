@@ -5,10 +5,12 @@
 package org.example.view;
 
 import org.example.model.DataBaseConnexion;
+import org.example.model.Reservation;
 import org.example.model.Room;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -16,7 +18,10 @@ import java.util.Map;
  * @author DELL
  */
 public class AdminView extends javax.swing.JFrame {
-
+    public ArrayList<ReservationPanel> reservationsPanelArray = new ArrayList<>();
+    public ModifyRoomView modifyRoomView;
+    public CreateRoomView createRoomView;
+    public DeleteRoomView deleteRoomView;
     /**
      * Creates new form AdminView
      */
@@ -38,18 +43,29 @@ public class AdminView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         modifyRoomButton = new javax.swing.JButton();
         deleteRoomButton = new javax.swing.JButton();
+        logOutButton = new javax.swing.JButton();
         reservationsPanel = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        for(Map.Entry<Integer,Reservation> entry : DataBaseConnexion.reservationMap.entrySet())
+        {
+            if(DataBaseConnexion.usersMap.get(entry.getValue().getUsername()).isReservationStatus() )
+            {
 
-        for(Map.Entry<Integer, Room> entry : DataBaseConnexion.roomsMap.entrySet()) {
-            RoomPanel roomPanel = new RoomPanel();
-            roomPanel.addRoomNumber(entry.getValue().getRoomnumber());
-            roomPanel.addRoomType(entry.getValue().getRoomtype());
-            roomPanel.addRoomPrice(entry.getValue().getRoomprice());
-            container.add(roomPanel);
+            }
+            else
+            {
+                ReservationPanel reservationPanel1 = new ReservationPanel();
+                reservationPanel1.setReservationNumberField(String.valueOf(entry.getKey()));
+                reservationPanel1.setRoomNumberField(String.valueOf(entry.getValue().getRoomToReserve()));
+                reservationPanel1.setUserNameField(entry.getValue().getUsername());
+                reservationPanel1.setBegiDateField(entry.getValue().getBeginDate().toString());
+                reservationPanel1.setEndDateField(entry.getValue().getEndDate().toString());
+                reservationsPanelArray.add(reservationPanel1);
+                container.add(reservationPanel1);
+            }
         }
         reservationsPanel.setViewportView(container);
 
@@ -60,6 +76,8 @@ public class AdminView extends javax.swing.JFrame {
         modifyRoomButton.setText("Modify Room");
 
         deleteRoomButton.setText("Delete Room");
+
+        logOutButton.setText("Logout");
 
         javax.swing.GroupLayout roomsSideBarLayout = new javax.swing.GroupLayout(roomsSideBar);
         roomsSideBar.setLayout(roomsSideBarLayout);
@@ -78,7 +96,9 @@ public class AdminView extends javax.swing.JFrame {
                         .addComponent(modifyRoomButton))
                     .addGroup(roomsSideBarLayout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(deleteRoomButton)))
+                        .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteRoomButton))))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         roomsSideBarLayout.setVerticalGroup(
@@ -92,7 +112,9 @@ public class AdminView extends javax.swing.JFrame {
                 .addComponent(modifyRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(deleteRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(419, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(343, Short.MAX_VALUE))
         );
 
         reservationsPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -130,17 +152,54 @@ public class AdminView extends javax.swing.JFrame {
     {
         deleteRoomButton.addActionListener(actionListener);
     }
+    public void onClickedAcceptButton(ActionListener listener,int i)
+    {
+        reservationsPanelArray.get(i).onClickedacceptButton(listener);
+    }
+    public void onClickedDeclineButton(ActionListener listener,int i)
+    {
+        reservationsPanelArray.get(i).onClickeddeclineButton(listener);
+    }
+    public void onClickedLogOutButton(ActionListener listener)
+    {
+        logOutButton.addActionListener(listener);
+    }
+    public void updateUI()
+    {
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        for(Map.Entry<Integer,Reservation> entry : DataBaseConnexion.reservationMap.entrySet())
+        {
+            if(DataBaseConnexion.usersMap.get(entry.getValue().getUsername()).isReservationStatus() || DataBaseConnexion.usersMap.get(entry.getValue().getUsername()).getReservationNumber() == 0)
+            {
+
+            }
+            else
+            {
+                ReservationPanel reservationPanel1 = new ReservationPanel();
+                reservationPanel1.setReservationNumberField(String.valueOf(entry.getKey()));
+                reservationPanel1.setRoomNumberField(String.valueOf(entry.getValue().getRoomToReserve()));
+                reservationPanel1.setUserNameField(entry.getValue().getUsername());
+                reservationPanel1.setBegiDateField(entry.getValue().getBeginDate().toString());
+                reservationPanel1.setEndDateField(entry.getValue().getEndDate().toString());
+                reservationsPanelArray.add(reservationPanel1);
+                container.add(reservationPanel1);
+                container.revalidate();
+                container.repaint();
+
+            }
+        }
+        reservationsPanel.setViewportView(container);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton createRoomButton;
-    public javax.swing.JButton deleteRoomButton;
+    private javax.swing.JButton createRoomButton;
+    private javax.swing.JButton deleteRoomButton;
     private javax.swing.JLabel jLabel1;
-    public javax.swing.JButton modifyRoomButton;
-    public javax.swing.JScrollPane reservationsPanel;
+    private javax.swing.JButton logOutButton;
+    private javax.swing.JButton modifyRoomButton;
+    private javax.swing.JScrollPane reservationsPanel;
     private javax.swing.JPanel roomsSideBar;
-    public CreateRoomView createRoomView;
-    public ModifyRoomView modifyRoomView;
-    public DeleteRoomView deleteRoomView;
-
     // End of variables declaration//GEN-END:variables
 }

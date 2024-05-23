@@ -1,9 +1,6 @@
 package org.example.controller;
 
-import org.example.model.Admin;
-import org.example.model.Building;
-import org.example.model.DataBaseConnexion;
-import org.example.model.Room;
+import org.example.model.*;
 import org.example.view.*;
 
 import javax.swing.*;
@@ -15,11 +12,15 @@ public class AdminController {
     Admin admin;
     AdminAuthenticate adminAuthenticate;
     AdminView adminView;
+
     MainPage mainPage;
     public AdminController(AdminAuthenticate adminAuthenticate,MainPage mainPage) {
         this.adminAuthenticate = adminAuthenticate;
         adminAuthenticate.onLogInButtonClicked(new LogInButtonListener());
         this.mainPage = mainPage;
+
+
+
     }
 
     class LogInButtonListener implements ActionListener {
@@ -31,13 +32,19 @@ public class AdminController {
                 Admin test = DataBaseConnexion.getAdminFromDataBase();
                 if (username.equals(test.getUsername()) && password.equals(test.getPassword())) {
                     admin = test;
-                    JOptionPane.showMessageDialog(null, "Login Succesful\n welcome back Admin");
                     adminView = new AdminView();
+                    JOptionPane.showMessageDialog(null, "Login Succesful\n welcome back Admin");
                     adminView.onClickedModifyRoomView(new ButtonChooser2());
                     adminView.onClickedCreateRoomView(new ButtonChooser1());
                     adminView.onClickedDeleteRoomView(new ButtonChooser3());
                     adminView.setVisible(true);
                     adminAuthenticate.dispose();
+                    adminView.onClickedLogOutButton(new LogOutButtonListener());
+                    for(int i=0;i<adminView.reservationsPanelArray.size();i++)
+                    {
+                        adminView.onClickedAcceptButton(new AcceptButtonListener(i),i);
+                        adminView.onClickedDeclineButton(new DeclineButtonListener(),i);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "wrong username or password");
                 }
@@ -156,6 +163,66 @@ public class AdminController {
             {
                 JOptionPane.showMessageDialog(null,"Enter A Number Only");
             }
+        }
+    }
+    class AcceptButtonListener implements ActionListener
+    {
+        int index;
+        public AcceptButtonListener(int index)
+        {
+            this.index = index;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                Reservation reservation = DataBaseConnexion.reservationMap.get(adminView.reservationsPanelArray.get(index).getReservationNumber());
+                DataBaseConnexion.acceptReservation(reservation);
+                JOptionPane.showMessageDialog(null,"Reservation Accepted");
+                DataBaseControler.updateRooms();
+                DataBaseControler.updateReservations();
+                DataBaseControler.updateUsers();
+                adminView.updateUI();
+                for(int i=0;i<adminView.reservationsPanelArray.size();i++)
+                {
+                    adminView.onClickedAcceptButton(new AcceptButtonListener(i),i);
+                    adminView.onClickedDeclineButton(new DeclineButtonListener(),i);
+                }
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Error in Data Base");
+                ex.printStackTrace();
+            }
+        }
+    }
+    class DeclineButtonListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                Reservation reservation = DataBaseConnexion.reservationMap.get(adminView.reservationsPanelArray.get(0).getReservationNumber());
+                DataBaseConnexion.declineReservation(reservation);
+                JOptionPane.showMessageDialog(null,"Reservation Declined");
+                DataBaseControler.updateRooms();
+                DataBaseControler.updateReservations();
+                DataBaseControler.updateUsers();
+                adminView.updateUI();
+                for(int i=0;i<adminView.reservationsPanelArray.size();i++)
+                {
+                    adminView.onClickedAcceptButton(new AcceptButtonListener(i),i);
+                    adminView.onClickedDeclineButton(new DeclineButtonListener(),i);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Error in Data Base");
+                ex.printStackTrace();
+            }
+        }
+    }
+    class LogOutButtonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            adminView.dispose();
+            MainAuthenticateController mainAuthenticateController = new MainAuthenticateController(new MainPage());
+
         }
     }
 
