@@ -36,7 +36,6 @@ public class Main {
                 DataBaseControler.getRooms();
                 MainAuthenticateController mainAuthenticateController = new MainAuthenticateController(new MainPage());
 
-
             }
 
         });

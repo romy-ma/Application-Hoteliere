@@ -83,8 +83,7 @@ public class ClientView extends JFrame {
         reservationsPanel = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        //to put after reusing netbeans
-    JPanel container = new JPanel();
+            JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         for(Map.Entry<Integer, Room> entry : DataBaseConnexion.roomsMap.entrySet()) {
@@ -141,7 +140,8 @@ public class ClientView extends JFrame {
                             .addGap(30, 30, 30)))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(reservationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 926, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(reservationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         roomsSideBarLayout.setVerticalGroup(
             roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
