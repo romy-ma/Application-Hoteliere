@@ -9,7 +9,7 @@ public class User {
     private String username;
     private String password;
     private int reservationNumber;
-    private boolean reservationStatus;
+    private Boolean reservationStatus;
     private String email;
 
     // Constructor
@@ -22,7 +22,7 @@ public class User {
         this.password = password;
         this.email = email;
     }
-    public User(String username, String password,String email,int reservationNumber,boolean reservationStatus) {
+    public User(String username, String password,String email,int reservationNumber,Boolean reservationStatus) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -59,6 +59,17 @@ public class User {
     }
 
     public boolean isReservationStatus() {
+
+        if(reservationStatus == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public Boolean getReservationStatus() {
         return reservationStatus;
     }
 

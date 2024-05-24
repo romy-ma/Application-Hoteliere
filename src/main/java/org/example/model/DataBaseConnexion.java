@@ -52,6 +52,7 @@ public class DataBaseConnexion {
                String email = resultSet.getString("email");
                int reservationNumber = resultSet.getInt("reservation_number");
                boolean isReserved = resultSet.getBoolean("reservation_status");
+
                user = new User(username,password,email,reservationNumber,isReserved);
                usersMap.put(user.getUsername(),user);
            }
@@ -217,7 +218,7 @@ public class DataBaseConnexion {
     public static void declineReservation(Reservation reservation) throws SQLException
     {
         String query = "DELETE FROM Reservations WHERE username = ?";
-        String query2 = "UPDATE Clients SET reservation_number = NULL, reservation_status = NULL WHERE username = ?";
+        String query2 = "UPDATE Clients SET reservation_number = NULL, reservation_status = false WHERE username = ?";
         String query3 = "UPDATE Rooms SET is_reserved = false WHERE roomnumber = ?";
         PreparedStatement statement = connection.prepareStatement(query2);
         PreparedStatement statement2 = connection.prepareStatement(query);

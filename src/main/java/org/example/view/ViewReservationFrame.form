@@ -113,7 +113,7 @@
                       <Component id="roomPriceField" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="jLabel12" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="77" max="32767" attributes="0"/>
+                  <EmptySpace pref="43" max="32767" attributes="0"/>
                   <Component id="cancelReservationButton" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
