@@ -1,6 +1,7 @@
 package org.example;
 import org.example.controller.DataBaseControler;
 import org.example.controller.MainAuthenticateController;
+import org.example.view.AdminView;
 import org.example.view.CreateRoomView;
 import org.example.view.MainPage;
 
@@ -34,7 +35,6 @@ public class Main {
                 DataBaseControler.getUsers();
                 DataBaseControler.getRooms();
                 MainAuthenticateController mainAuthenticateController = new MainAuthenticateController(new MainPage());
-//                new CreateRoomView().setVisible(true);
 
 
             }

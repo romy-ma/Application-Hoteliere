@@ -56,24 +56,24 @@ public class ClientView extends JFrame {
     private void initComponents() {
 
         roomsSideBar = new javax.swing.JPanel()
-    {
-        @Override
-        protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
+        {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
 
-        // Define the gradient colors
-        Color startColor = new Color(175, 69, 69);
-        Color endColor = new Color(75, 19, 79);
+                // Define the gradient colors
+                Color startColor = new Color(175, 69, 69);
+                Color endColor = new Color(75, 19, 79);
 
-        int width = getWidth();
-        int height = getHeight();
-        GradientPaint gradientPaint = new GradientPaint(0, 0, startColor, width, height, endColor);
+                int width = getWidth();
+                int height = getHeight();
+                GradientPaint gradientPaint = new GradientPaint(0, 0, startColor, width, height, endColor);
 
-        g2d.setPaint(gradientPaint);
-        g2d.fillRect(0, 0, width, height);
-    }
-    };
+                g2d.setPaint(gradientPaint);
+                g2d.fillRect(0, 0, width, height);
+            }
+        };
         viewReservationButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         logOutButton = new javax.swing.JButton();
@@ -83,7 +83,8 @@ public class ClientView extends JFrame {
         reservationsPanel = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-            JPanel container = new JPanel();
+        //to put after reusing netbeans
+    JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         for(Map.Entry<Integer, Room> entry : DataBaseConnexion.roomsMap.entrySet()) {
@@ -99,12 +100,11 @@ public class ClientView extends JFrame {
     }
         reservationsPanel.setViewportView(container);
 
-
         viewReservationButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         viewReservationButton.setText("View Reservation");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Chose your Action:");
+        jLabel1.setText("Chhose your Action:");
 
         logOutButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         logOutButton.setText("Logout");
@@ -126,25 +126,22 @@ public class ClientView extends JFrame {
             .addGroup(roomsSideBarLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(roomsSideBarLayout.createSequentialGroup()
-                        .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(roomsSideBarLayout.createSequentialGroup()
-                                    .addGap(48, 48, 48)
-                                    .addComponent(viewReservationButton))
-                                .addGroup(roomsSideBarLayout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(roomsSideBarLayout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)))
-                        .addGap(14, 14, 14))
-                    .addGroup(roomsSideBarLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(reservationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE))
+                                .addGap(48, 48, 48)
+                                .addComponent(viewReservationButton))
+                            .addGroup(roomsSideBarLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(roomsSideBarLayout.createSequentialGroup()
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(reservationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 926, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         roomsSideBarLayout.setVerticalGroup(
             roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,19 +159,17 @@ public class ClientView extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(48, 48, 48))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roomsSideBarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(reservationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+            .addGroup(roomsSideBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(reservationsPanel)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(roomsSideBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(roomsSideBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
