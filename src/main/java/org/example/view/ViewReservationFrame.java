@@ -4,6 +4,7 @@
  */
 package org.example.view;
 
+import javax.swing.*;
 import java.awt.event.ActionListener;
 
 /**
@@ -44,7 +45,7 @@ public class ViewReservationFrame extends javax.swing.JFrame {
         roomPriceField = new javax.swing.JLabel();
         cancelReservationButton = new javax.swing.JButton();
 
-
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -165,7 +166,7 @@ public class ViewReservationFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(roomPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(cancelReservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -185,30 +186,7 @@ public class ViewReservationFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    public String getUserName()
-    {
-        return userNameField.getText();
-    }
-    public int getRoomNumber()
-    {
-        return Integer.parseInt(roomNumberField.getText());
-    }
-    public int getReservationNumber()
-    {
-        return Integer.parseInt(reservationNumberField.getText());
-    }
-    public String getBeginDate()
-    {
-        return begindateField.getText();
-    }
-    public  String getEndDate()
-    {
-        return endDateField.getText();
-    }
-    public int getRoomPrice()
-    {
-        return Integer.parseInt(roomPriceField.getText());
-    }
+   
     public void setUserName(String userName)
     {
         userNameField.setText(userName);

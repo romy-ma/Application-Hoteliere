@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Struct;
 
 public class ClientController {
     private ClientView clientView;
@@ -104,49 +105,25 @@ public class ClientController {
         @Override
         public void actionPerformed(ActionEvent e) {
             reservation = DataBaseConnexion.reservationMap.get(DataBaseConnexion.usersMap.get(user.getUsername()).getReservationNumber());
+            if(user.isReservationStatus() == true)
+            {
+                JOptionPane.showMessageDialog(null,"Your reservation was accepted","Reservation Info",JOptionPane.INFORMATION_MESSAGE);
+            }
 
             if(user.getReservationNumber() == 0 || reservation == null)
             {
-                JOptionPane.showMessageDialog(null,"You have no reservation","Reservation Infog",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"You have no reservation Or Rservation Delined","Reservation Info",JOptionPane.INFORMATION_MESSAGE);
             }
             else
             {
-                viewReservationFrame = new ViewReservationFrame();
-                viewReservationFrame.setBeginDate(reservation.getBeginDate().toString());
-                viewReservationFrame.setEndDate(reservation.getEndDate().toString());
-                viewReservationFrame.setRoomNumber(reservation.getRoomToReserve());
-                viewReservationFrame.setRoomPrice(String.valueOf(DataBaseConnexion.roomsMap.get(reservation.getRoomToReserve()).getRoomprice()) + " DA");
-                viewReservationFrame.setUserName(user.getUsername());
-                viewReservationFrame.setReservationNumber(user.getReservationNumber());
-                viewReservationFrame.onClickedCancelReservationButton(new CancelButtonListener());
-
-//                String reservationInfo;
-//                String username = "Username: " + user.getUsername();
-//                String reservationNumber = "Rservation Number:" + user.getReservationNumber();
-//                String roomNumber = "Room Number: " + reservation.getRoomToReserve();
-//                String beginDate = reservation.getBeginDate().toString();
-//                String endDate = reservation.getEndDate().toString();
-//                String price = DataBaseConnexion.roomsMap.get(reservation.getRoomToReserve()).getRoomprice() + " DA";
-//                reservationInfo = new String(username + "\n" + reservationNumber + "\n" + roomNumber + "\n" + beginDate + "\n" + endDate + "\n" +"Room Price: " + price);
-//
-//
-//                Object[] options = {"Ok","Cancel Reservation"};
-//                int choice  = JOptionPane.showOptionDialog(null,reservationInfo,"Reservation Info",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
-//                if(choice == 1)
-//                {
-//                    DataBaseControler.CancelReservationFromDataBase(user.getUsername());
-//                    JOptionPane.showMessageDialog(null,"Reservation Canceled","Reservation Canceled",JOptionPane.INFORMATION_MESSAGE);
-//                    DataBaseControler.updateUsers();
-//                    reservation = null;
-//                    DataBaseControler.updateReservations();
-//                    DataBaseControler.updateRooms();
-//                    user = DataBaseConnexion.usersMap.get(user.getUsername());
-//                    clientView.updateUI();
-//                    for(int i=0;i<clientView.roomPanels.size();i++)
-//                    {
-//                        clientView.roomPanels.get(i).OnClickedReserveButton(new RservationButtonListener(i));
-//                    }
-//                }
+                    viewReservationFrame = new ViewReservationFrame();
+                    viewReservationFrame.setBeginDate(reservation.getBeginDate().toString());
+                    viewReservationFrame.setEndDate(reservation.getEndDate().toString());
+                    viewReservationFrame.setRoomNumber(reservation.getRoomToReserve());
+                    viewReservationFrame.setRoomPrice(String.valueOf(DataBaseConnexion.roomsMap.get(reservation.getRoomToReserve()).getRoomprice()) + " DA");
+                    viewReservationFrame.setUserName(user.getUsername());
+                    viewReservationFrame.setReservationNumber(user.getReservationNumber());
+                    viewReservationFrame.onClickedCancelReservationButton(new CancelButtonListener());
             }
         }
     }
