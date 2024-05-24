@@ -44,15 +44,15 @@ public class ReservationFrame extends javax.swing.JFrame {
         beginDayField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         createReservationButton.setBackground(new java.awt.Color(175, 69, 69));
         createReservationButton.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        createReservationButton.setForeground(new java.awt.Color(0, 0, 0));
+        createReservationButton.setForeground(new java.awt.Color(255, 255, 255));
         createReservationButton.setText("Finish");
+        createReservationButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         endYearField.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         endYearField.setForeground(new java.awt.Color(204, 204, 204));
