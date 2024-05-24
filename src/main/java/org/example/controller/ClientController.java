@@ -27,6 +27,7 @@ public class ClientController {
         reservation = DataBaseConnexion.reservationMap.get(DataBaseConnexion.usersMap.get(user.getUsername()).getReservationNumber());
         clientView.onClickedViewReservationButton(new ViewReservationButtonListener());
         clientView.onClickedLogOutButton(new LogOutButtonListener());
+        clientView.setUserNameField(user.getUsername());
 
         for(int i=0;i<clientView.roomPanels.size();i++)
         {
@@ -134,7 +135,6 @@ public class ClientController {
                     DataBaseControler.updateRooms();
                     user = DataBaseConnexion.usersMap.get(user.getUsername());
                     clientView.updateUI();
-
                     for(int i=0;i<clientView.roomPanels.size();i++)
                     {
                         clientView.roomPanels.get(i).OnClickedReserveButton(new RservationButtonListener(i));

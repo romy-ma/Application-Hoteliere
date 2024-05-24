@@ -4,6 +4,7 @@ import org.example.controller.MainAuthenticateController;
 import org.example.model.Building;
 import org.example.view.ClientView;
 import org.example.view.MainPage;
+import org.example.view.ReservationFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -36,8 +37,9 @@ public class Main {
                 DataBaseControler.getAdmin();
                 DataBaseControler.getUsers();
                 DataBaseControler.getRooms();
-
                 MainAuthenticateController mainAuthenticateController = new MainAuthenticateController(new MainPage());
+//
+
 
             }
 
