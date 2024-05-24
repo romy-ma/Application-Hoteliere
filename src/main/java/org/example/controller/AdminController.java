@@ -89,7 +89,7 @@ public class AdminController {
                 Room room = new Room(price,roomType);
                 DataBaseConnexion.InsertRoomIntoDataBase(room);
                 JOptionPane.showMessageDialog(null,"Room inserted succesful");
-                return;
+                adminView.createRoomView.dispose();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null,"enter a number not special caracters");
             } catch (SQLException ex) {
@@ -111,9 +111,10 @@ public class AdminController {
                     if(!DataBaseConnexion.roomsMap.get(roomnumber).isReserved())
                     {
                         DataBaseConnexion.insertModifiesRoom(new Room(price,roomnumber,false,roomType));
+                        adminView.modifyRoomView.dispose();
                     }
                     else {
-                        JOptionPane.showMessageDialog(null,"This Room Is Reserved Catne delete");
+                        JOptionPane.showMessageDialog(null,"This Room Is Reserved Cant Modify it");
                     }
                 }
                 else
@@ -144,6 +145,7 @@ public class AdminController {
                     {
                         DataBaseConnexion.deleteRoom(new Room(roomNumber));
                         JOptionPane.showMessageDialog(null,"Room Deleted Successfully");
+                        adminView.deleteRoomView.dispose();
                     }
                     else {
                         JOptionPane.showMessageDialog(null,"This Room Is Reserved Cant delete");

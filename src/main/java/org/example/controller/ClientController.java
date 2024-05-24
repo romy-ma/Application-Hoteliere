@@ -2,10 +2,7 @@ package org.example.controller;
 
 
 import org.example.model.*;
-import org.example.view.ClientView;
-import org.example.view.MainPage;
-import org.example.view.ReservationFrame;
-import org.example.view.ReservationView;
+import org.example.view.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +15,7 @@ public class ClientController {
      User user;
 
     Reservation reservation;
+    ViewReservationFrame viewReservationFrame;
     ReservationFrame reservationFrame;
 
     public ClientController(ClientView clientView, User user) {
@@ -113,33 +111,42 @@ public class ClientController {
             }
             else
             {
+                viewReservationFrame = new ViewReservationFrame();
+                viewReservationFrame.setBeginDate(reservation.getBeginDate().toString());
+                viewReservationFrame.setEndDate(reservation.getEndDate().toString());
+                viewReservationFrame.setRoomNumber(reservation.getRoomToReserve());
+                viewReservationFrame.setRoomPrice(String.valueOf(DataBaseConnexion.roomsMap.get(reservation.getRoomToReserve()).getRoomprice()) + " DA");
+                viewReservationFrame.setUserName(user.getUsername());
+                viewReservationFrame.setReservationNumber(user.getReservationNumber());
+                viewReservationFrame.onClickedCancelReservationButton(new CancelButtonListener());
 
-                String reservationInfo;
-                String username = "Username: " + user.getUsername();
-                String reservationNumber = "Rservation Number:" + user.getReservationNumber();
-                String roomNumber = "Room Number: " + reservation.getRoomToReserve();
-                String beginDate = reservation.getBeginDate().toString();
-                String endDate = reservation.getEndDate().toString();
-                reservationInfo = new String(username + "\n" + reservationNumber + "\n" + roomNumber + "\n" + beginDate + "\n" + endDate);
-
-
-                Object[] options = {"Ok","Cancel Reservation"};
-                int choice  = JOptionPane.showOptionDialog(null,reservationInfo,"Reservation Info",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
-                if(choice == 1)
-                {
-                    DataBaseControler.CancelReservationFromDataBase(user.getUsername());
-                    JOptionPane.showMessageDialog(null,"Reservation Canceled","Reservation Canceled",JOptionPane.INFORMATION_MESSAGE);
-                    DataBaseControler.updateUsers();
-                    reservation = null;
-                    DataBaseControler.updateReservations();
-                    DataBaseControler.updateRooms();
-                    user = DataBaseConnexion.usersMap.get(user.getUsername());
-                    clientView.updateUI();
-                    for(int i=0;i<clientView.roomPanels.size();i++)
-                    {
-                        clientView.roomPanels.get(i).OnClickedReserveButton(new RservationButtonListener(i));
-                    }
-                }
+//                String reservationInfo;
+//                String username = "Username: " + user.getUsername();
+//                String reservationNumber = "Rservation Number:" + user.getReservationNumber();
+//                String roomNumber = "Room Number: " + reservation.getRoomToReserve();
+//                String beginDate = reservation.getBeginDate().toString();
+//                String endDate = reservation.getEndDate().toString();
+//                String price = DataBaseConnexion.roomsMap.get(reservation.getRoomToReserve()).getRoomprice() + " DA";
+//                reservationInfo = new String(username + "\n" + reservationNumber + "\n" + roomNumber + "\n" + beginDate + "\n" + endDate + "\n" +"Room Price: " + price);
+//
+//
+//                Object[] options = {"Ok","Cancel Reservation"};
+//                int choice  = JOptionPane.showOptionDialog(null,reservationInfo,"Reservation Info",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+//                if(choice == 1)
+//                {
+//                    DataBaseControler.CancelReservationFromDataBase(user.getUsername());
+//                    JOptionPane.showMessageDialog(null,"Reservation Canceled","Reservation Canceled",JOptionPane.INFORMATION_MESSAGE);
+//                    DataBaseControler.updateUsers();
+//                    reservation = null;
+//                    DataBaseControler.updateReservations();
+//                    DataBaseControler.updateRooms();
+//                    user = DataBaseConnexion.usersMap.get(user.getUsername());
+//                    clientView.updateUI();
+//                    for(int i=0;i<clientView.roomPanels.size();i++)
+//                    {
+//                        clientView.roomPanels.get(i).OnClickedReserveButton(new RservationButtonListener(i));
+//                    }
+//                }
             }
         }
     }
@@ -150,6 +157,26 @@ public class ClientController {
         public void actionPerformed(ActionEvent e) {
             clientView.dispose();
             MainAuthenticateController mainAuthenticateController = new MainAuthenticateController(new MainPage());
+        }
+    }
+    class CancelButtonListener implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            DataBaseControler.CancelReservationFromDataBase(user.getUsername());
+            JOptionPane.showMessageDialog(null,"Reservation Canceled","Reservation Canceled",JOptionPane.INFORMATION_MESSAGE);
+            DataBaseControler.updateUsers();
+            reservation = null;
+            DataBaseControler.updateReservations();
+            DataBaseControler.updateRooms();
+            user = DataBaseConnexion.usersMap.get(user.getUsername());
+            viewReservationFrame.dispose();
+            clientView.updateUI();
+            for(int i=0;i<clientView.roomPanels.size();i++)
+            {
+                clientView.roomPanels.get(i).OnClickedReserveButton(new RservationButtonListener(i));
+            }
         }
     }
 }

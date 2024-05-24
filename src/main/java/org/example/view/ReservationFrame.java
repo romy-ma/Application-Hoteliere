@@ -5,6 +5,7 @@
 package org.example.view;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -193,6 +194,12 @@ public class ReservationFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (screenSize.width - this.getWidth()) / 2 ;
+        int centerY = (screenSize.height - this.getHeight()) / 2 ;
+
+        // Set the frame location
+        setLocation(centerX+ this.getWidth(), centerY+ this.getHeight());
         setVisible(true);
         pack();
     }// </editor-fold>//GEN-END:initComponents
