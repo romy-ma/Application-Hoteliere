@@ -1,13 +1,11 @@
 package org.example;
 import org.example.controller.DataBaseControler;
 import org.example.controller.MainAuthenticateController;
-import org.example.model.Building;
-import org.example.view.ClientView;
+import org.example.view.AdminView;
+import org.example.view.CreateRoomView;
 import org.example.view.MainPage;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Main {
 
@@ -36,7 +34,6 @@ public class Main {
                 DataBaseControler.getAdmin();
                 DataBaseControler.getUsers();
                 DataBaseControler.getRooms();
-
                 MainAuthenticateController mainAuthenticateController = new MainAuthenticateController(new MainPage());
 
             }

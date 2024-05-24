@@ -6,12 +6,9 @@ package org.example.view;
 
 import org.example.model.DataBaseConnexion;
 import org.example.model.Room;
-import org.example.view.CreateRoomView;
-import org.example.view.DeleteRoomView;
-import org.example.view.ModifyRoomView;
-import org.example.view.RoomPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,6 +20,28 @@ import java.util.Map;
 public class ClientView extends JFrame {
 
    public ArrayList<RoomPanel> roomPanels = new ArrayList<>();
+   Toolkit toolkit = Toolkit.getDefaultToolkit();
+   Image image = toolkit.getImage("src/main/java/org/example/view/pngegg_2.png");
+   Image image2 = toolkit.getImage("src/main/java/org/example/view/pngegg_3.png");
+//   new javax.swing.JPanel()
+//    {
+//        @Override
+//        protected void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//        Graphics2D g2d = (Graphics2D) g;
+//
+//        // Define the gradient colors
+//        Color startColor = new Color(175, 69, 69);
+//        Color endColor = new Color(75, 19, 79);
+//
+//        int width = getWidth();
+//        int height = getHeight();
+//        GradientPaint gradientPaint = new GradientPaint(0, 0, startColor, width, height, endColor);
+//
+//        g2d.setPaint(gradientPaint);
+//        g2d.fillRect(0, 0, width, height);
+//    }
+//    };
     public ClientView() {
         initComponents();
     }
@@ -36,83 +55,128 @@ public class ClientView extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        roomsSideBar = new javax.swing.JPanel();
+        roomsSideBar = new javax.swing.JPanel()
+        {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+
+                // Define the gradient colors
+                Color startColor = new Color(175, 69, 69);
+                Color endColor = new Color(75, 19, 79);
+
+                int width = getWidth();
+                int height = getHeight();
+                GradientPaint gradientPaint = new GradientPaint(0, 0, startColor, width, height, endColor);
+
+                g2d.setPaint(gradientPaint);
+                g2d.fillRect(0, 0, width, height);
+            }
+        };
         viewReservationButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         logOutButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        userNameField = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         reservationsPanel = new javax.swing.JScrollPane();
-        JPanel container = new JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         for(Map.Entry<Integer, Room> entry : DataBaseConnexion.roomsMap.entrySet()) {
-            if(!entry.getValue().isReserved())
-            {
-                RoomPanel roomPanel = new RoomPanel();
-                roomPanel.addRoomNumber(entry.getValue().getRoomnumber());
-                roomPanel.addRoomType(entry.getValue().getRoomtype());
-                roomPanel.addRoomPrice(entry.getValue().getRoomprice());
-                container.add(roomPanel);
-                roomPanels.add(roomPanel);
-            }
+        if(!entry.getValue().isReserved())
+        {
+            RoomPanel roomPanel = new RoomPanel();
+            roomPanel.addRoomNumber(entry.getValue().getRoomnumber());
+            roomPanel.addRoomType(entry.getValue().getRoomtype());
+            roomPanel.addRoomPrice(entry.getValue().getRoomprice());
+            container.add(roomPanel);
+            roomPanels.add(roomPanel);
         }
+    }
         reservationsPanel.setViewportView(container);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        viewReservationButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         viewReservationButton.setText("View Reservation");
 
-        jLabel1.setText("Chose your Action:");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Chhose your Action:");
 
+        logOutButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         logOutButton.setText("Logout");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(image)); // NOI18N
+
+        userNameField.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        userNameField.setText("jLabel3");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(image2)); // NOI18N
+        jLabel3.setText("jLabel3");
+
+        reservationsPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         javax.swing.GroupLayout roomsSideBarLayout = new javax.swing.GroupLayout(roomsSideBar);
         roomsSideBar.setLayout(roomsSideBarLayout);
         roomsSideBarLayout.setHorizontalGroup(
             roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roomsSideBarLayout.createSequentialGroup()
-                .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(24, 24, 24)
+                .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(roomsSideBarLayout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addComponent(viewReservationButton))
+                            .addGroup(roomsSideBarLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(roomsSideBarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(roomsSideBarLayout.createSequentialGroup()
-                            .addGap(48, 48, 48)
-                            .addComponent(viewReservationButton))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(reservationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         roomsSideBarLayout.setVerticalGroup(
             roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roomsSideBarLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(31, 31, 31)
+                .addGroup(roomsSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(userNameField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(168, 168, 168)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addComponent(viewReservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(495, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(48, 48, 48))
+            .addGroup(roomsSideBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(reservationsPanel)
+                .addContainerGap())
         );
-
-        reservationsPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(roomsSideBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(reservationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(roomsSideBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(roomsSideBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(reservationsPanel)
         );
-
-        pack();
         setVisible(true);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
     public void updateUI()
     {
@@ -139,12 +203,16 @@ public class ClientView extends JFrame {
     public void onClickedReservationButtonListener(ActionListener listener,int i){roomPanels.get(i).OnClickedReserveButton(listener);}
     public void onClickedViewReservationButton(ActionListener listener){viewReservationButton.addActionListener(listener);}
     public void onClickedLogOutButton(ActionListener listener){logOutButton.addActionListener(listener);}
+    public void setUserNameField(String userName){userNameField.setText(userName);}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton logOutButton;
     private javax.swing.JScrollPane reservationsPanel;
     private javax.swing.JPanel roomsSideBar;
+    private javax.swing.JLabel userNameField;
     private javax.swing.JButton viewReservationButton;
     // End of variables declaration//GEN-END:variables
 
@@ -153,12 +221,16 @@ public class ClientView extends JFrame {
 //        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 //
 //        for(Map.Entry<Integer, Room> entry : DataBaseConnexion.roomsMap.entrySet()) {
-//        RoomPanel roomPanel = new RoomPanel();
-//        roomPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-//        roomPanel.addRoomNumber(entry.getValue().getRoomnumber());
-//        roomPanel.addRoomType(entry.getValue().getRoomtype());
-//        roomPanel.addRoomPrice(entry.getValue().getRoomprice());
-//        container.add(roomPanel);
+//        if(!entry.getValue().isReserved())
+//        {
+//            RoomPanel roomPanel = new RoomPanel();
+//            roomPanel.addRoomNumber(entry.getValue().getRoomnumber());
+//            roomPanel.addRoomType(entry.getValue().getRoomtype());
+//            roomPanel.addRoomPrice(entry.getValue().getRoomprice());
+//            container.add(roomPanel);
+//            roomPanels.add(roomPanel);
+//        }
 //    }
 //        reservationsPanel.setViewportView(container);
+
 }
