@@ -75,7 +75,6 @@ public class AdminView extends javax.swing.JFrame {
     {
         if(DataBaseConnexion.usersMap.get(entry.getValue().getUsername()).isReservationStatus() )
         {
-
         }
         else
         {

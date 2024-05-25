@@ -183,6 +183,7 @@ public class AdminController {
                 DataBaseControler.updateRooms();
                 DataBaseControler.updateReservations();
                 DataBaseControler.updateUsers();
+                reservation = DataBaseConnexion.reservationMap.get(adminView.reservationsPanelArray.get(index).getReservationNumber());
                 adminView.updateUI();
                 for(int i=0;i<adminView.reservationsPanelArray.size();i++)
                 {

@@ -9,7 +9,7 @@ public class User {
     private String username;
     private String password;
     private int reservationNumber;
-    private Boolean reservationStatus;
+    private boolean reservationStatus;
     private String email;
 
     // Constructor
@@ -60,14 +60,7 @@ public class User {
 
     public boolean isReservationStatus() {
 
-        if(reservationStatus == null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return reservationStatus;
     }
     public Boolean getReservationStatus() {
         return reservationStatus;

@@ -52,7 +52,6 @@ public class DataBaseConnexion {
                String email = resultSet.getString("email");
                int reservationNumber = resultSet.getInt("reservation_number");
                boolean isReserved = resultSet.getBoolean("reservation_status");
-
                user = new User(username,password,email,reservationNumber,isReserved);
                usersMap.put(user.getUsername(),user);
            }
