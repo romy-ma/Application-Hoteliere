@@ -99,18 +99,20 @@ public class ClientView extends JFrame {
     }
         reservationsPanel.setViewportView(container);
 
-        viewReservationButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        viewReservationButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         viewReservationButton.setText("View Reservation");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Chhose your Action:");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Chose your Action:");
 
-        logOutButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        logOutButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         logOutButton.setText("Logout");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(image)); // NOI18N
 
-        userNameField.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        userNameField.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        userNameField.setForeground(new java.awt.Color(255, 255, 255));
         userNameField.setText("jLabel3");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(image2)); // NOI18N

@@ -105,6 +105,8 @@ public class ClientController {
         @Override
         public void actionPerformed(ActionEvent e) {
             reservation = DataBaseConnexion.reservationMap.get(DataBaseConnexion.usersMap.get(user.getUsername()).getReservationNumber());
+            user = DataBaseConnexion.usersMap.get(user.getUsername());
+
             if(user.isReservationStatus() == true)
             {
                 JOptionPane.showMessageDialog(null,"Your reservation was accepted","Reservation Info",JOptionPane.INFORMATION_MESSAGE);
